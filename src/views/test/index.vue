@@ -6,11 +6,13 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 import { SelectOptions } from '@/constants/dictionary/select-options';
 import { fetchMock2 } from '@/services';
+import { useI18nStore } from '@/store/modules/i18n';
 import { dictionaryToOption } from '@/components/nameless/form';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from '@/components/ui/toast';
 
+const i18nStore = useI18nStore();
 const mode = useColorMode();
 class Dto {
   public str?: 'str3' | 'str1' | 'str2';
@@ -108,6 +110,27 @@ const test = async () => {
         <DropdownMenuItem @click="mode = 'light'">Light</DropdownMenuItem>
         <DropdownMenuItem @click="mode = 'dark'">Dark</DropdownMenuItem>
         <DropdownMenuItem @click="mode = 'auto'">System</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+
+    <DropdownMenu>
+      <DropdownMenuTrigger as-child>
+        <Button variant="outline">
+          <Icon
+            icon="radix-icons:moon"
+            class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+          />
+          <Icon
+            icon="radix-icons:sun"
+            class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+          />
+          <span class="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem @click="i18nStore.changeLanguage('zh-CN')">zh-CN</DropdownMenuItem>
+        <DropdownMenuItem @click="i18nStore.changeLanguage('zh-HK')">zh-HK</DropdownMenuItem>
+        <DropdownMenuItem @click="i18nStore.changeLanguage('en-US')">en-US</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
     <div class="space-x-4">

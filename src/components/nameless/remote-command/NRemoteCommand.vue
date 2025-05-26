@@ -95,7 +95,7 @@ const searchValue = useVModel(props, 'searchValue', emit, {
         </ListboxGroup>
       </div>
     </ListboxContent>
-    <Primitive v-else :class="cn('py-6 text-center text-sm')">No framework found.</Primitive>
+    <Primitive v-else :class="cn('py-6 text-center text-sm')">{{ $t('nameless.empty') }}</Primitive>
   </ListboxRoot>
 </template>
 

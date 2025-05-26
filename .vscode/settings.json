@@ -1,0 +1,32 @@
+{
+  "i18n-ally.localesPaths": ["src/locales", "src/locales/langs", "packages/scripts/src/locales"],
+  "files.exclude": {
+    // ".temp": true,
+    // "temp": true,
+    // "dist": true,
+    // "build": true,
+    // "public": true,
+    // "packages": true,
+    // "ssl": true,
+    // "node_modules": true,
+    // "eslint.config": true,
+    // ".gitignore": true,
+    // ".npmrc": true,
+    // "pnpm-lock.yaml": true,
+    // "pnpm-workspace.yaml": true,
+    // "eslint.config.js": true,
+    // ".editorconfig": true,
+    // ".gitattributes": true,
+    // "index.html": true,
+    // "README.md": true,
+    // "preserve.html": true,
+    // "components.json": true,
+    // "tsconfig.json": true,
+    // "uno.config.ts": true,
+    // "er.config.ts": true,
+    // "vite.config.ts": true,
+    // "stats.html": true
+  },
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "zh-cn"
+}

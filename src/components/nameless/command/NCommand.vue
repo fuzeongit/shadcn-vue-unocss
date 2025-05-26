@@ -27,8 +27,8 @@ const modelValue = useVModel(props, 'modelValue', emit, {
 
 <template>
   <Command v-model="modelValue">
-    <CommandInput placeholder="Search framework..." />
-    <CommandEmpty>No framework found.</CommandEmpty>
+    <CommandInput :placeholder="$t('nameless.input.placeholder')" />
+    <CommandEmpty>{{ $t('nameless.empty') }}</CommandEmpty>
     <CommandList>
       <CommandGroup>
         <CommandItem v-for="(option, index) in options" :key="index" :value="option.value">

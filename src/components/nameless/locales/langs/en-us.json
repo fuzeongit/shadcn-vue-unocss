@@ -1,0 +1,9 @@
+{
+  "nameless": {
+    "empty": "Empty",
+    "input": {
+      "placeholder": "Please enter",
+      "search": "Search"
+    }
+  }
+}
