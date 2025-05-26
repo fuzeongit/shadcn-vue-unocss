@@ -12,6 +12,7 @@ import {
 import { SelectOptions } from '@/constants/dictionary/select-options';
 import { fetchMock2 } from '@/services';
 import { userApi } from '@/services/apis/user';
+import { useI18nStore } from '@/store/modules/i18n';
 import FilterString from '@/hooks/filter/components/FilterString.vue';
 import { FilterType } from '@/hooks/filter/constants';
 import { useTanstackPaging } from '@/hooks/paging';
@@ -24,7 +25,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 import { Params } from '@/params/user';
 const mode = useColorMode();
-
+const i18nStore = useI18nStore();
 const columnHelper = createColumnHelper<UserModule.User>();
 
 const { loading, table, filterComponents } = useTanstackPaging<Params, UserModule.User>({
@@ -170,6 +171,7 @@ const change = () => {
 
 <template>
   <div class="w-full">
+    {{ $t('test') }}
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button variant="outline">
@@ -188,6 +190,27 @@ const change = () => {
         <DropdownMenuItem @click="mode = 'light'">Light</DropdownMenuItem>
         <DropdownMenuItem @click="mode = 'dark'">Dark</DropdownMenuItem>
         <DropdownMenuItem @click="mode = 'auto'">System</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+
+    <DropdownMenu>
+      <DropdownMenuTrigger as-child>
+        <Button variant="outline">
+          <Icon
+            icon="radix-icons:moon"
+            class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+          />
+          <Icon
+            icon="radix-icons:sun"
+            class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+          />
+          <span class="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem @click="i18nStore.changeLanguage('zh-CN')">zh-CN</DropdownMenuItem>
+        <DropdownMenuItem @click="i18nStore.changeLanguage('zh-HK')">zh-HK</DropdownMenuItem>
+        <DropdownMenuItem @click="i18nStore.changeLanguage('en-US')">en-US</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
     <Button
