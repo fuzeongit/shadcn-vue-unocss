@@ -2,6 +2,7 @@ import { defineConfig, presetIcons } from 'unocss';
 import { presetWind } from '@unocss/preset-wind3';
 import presetAnimations from 'unocss-preset-animations';
 import { builtinColors, presetShadcn } from 'unocss-preset-shadcn';
+import { presetSoybeanAdmin } from '@sa/uno-preset';
 
 // 辅助函数：从 theme.colors 获取颜色值
 function getPresetColor(color: string, theme: any): string | undefined {
@@ -33,7 +34,8 @@ export default defineConfig({
         globals: true,
         componentLibrary: 'reka'
       }
-    )
+    ),
+    presetSoybeanAdmin()
   ],
   shortcuts: [
     [
