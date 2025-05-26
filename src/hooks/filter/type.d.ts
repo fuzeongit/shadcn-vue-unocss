@@ -31,7 +31,7 @@ declare namespace QuickFilter {
 
   interface RemoteSelectOption extends Option {
     type: import('./constants').FilterType.RemoteSelect;
-    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
+    options: (value?: string) => Promise<Nameless.Form.SelectOption<T>[]>;
     valueType?: 'string' | 'number';
     searchTerm?: string;
     immediate?: boolean;

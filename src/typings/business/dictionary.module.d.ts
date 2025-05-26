@@ -3,4 +3,9 @@ declare namespace DictionaryModule {
     code: string;
     desc: string;
   }
+
+  interface DictionaryType {
+    type: string;
+    dictionaries: Dictionary[];
+  }
 }

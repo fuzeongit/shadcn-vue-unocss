@@ -1,25 +1,35 @@
 <script lang="ts" setup generic="T extends Nameless.Form.SelectValue">
+import type { HTMLAttributes } from 'vue';
+import { unionBy } from 'lodash-es';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { unionBy } from 'lodash-es';
-import type { HTMLAttributes } from 'vue';
 import NInputBorder from './NInputBorder.vue';
 defineComponent({
   name: 'NTagsWithCombobox'
 });
 
+type Remote = {
+  remote?: true;
+  options: (value?: string) => Promise<Nameless.Form.SelectOption<T>[]>;
+};
+
+type Local = {
+  remote?: false;
+  options: Nameless.MaybePromise<Nameless.Form.SelectOption<T>[]>;
+};
+
 const props = withDefaults(
-  defineProps<{
-    defaultValue?: T[];
-    modelValue?: T[];
-    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
-    // eslint-disable-next-line vue/no-reserved-props
-    class?: HTMLAttributes['class'];
-    remote?: boolean;
-    clearable?: boolean;
-    placeholder?: string;
-    disabled?: boolean;
-  }>(),
+  defineProps<
+    {
+      defaultValue?: T[];
+      modelValue?: T[];
+      // eslint-disable-next-line vue/no-reserved-props
+      class?: HTMLAttributes['class'];
+      clearable?: boolean;
+      placeholder?: string;
+      disabled?: boolean;
+    } & (Remote | Local)
+  >(),
   {
     defaultValue: () => [],
     modelValue: undefined,
@@ -66,13 +76,18 @@ const select = (option: T[]) => {
 
 const searchValue = ref<string>();
 
-const frameworks = asyncComputed(
-  () =>
-    typeof props.options === 'function'
-      ? props.options(searchValue.value)
-      : props.options.filter(it => (searchValue.value === undefined ? true : it.label.includes(searchValue.value))),
-  []
-);
+const localOptions = asyncComputed(async () => {
+  if (!props.remote) {
+    return typeof props.options === 'function' ? await props.options() : props.options;
+  }
+  return [];
+}, []);
+
+const frameworks = asyncComputed(() => {
+  return props.remote
+    ? props.options(searchValue.value)
+    : localOptions.value.filter(it => (searchValue.value === undefined ? true : it.label.includes(searchValue.value)));
+}, []);
 
 const cacheFrameworks: Ref<Nameless.Form.SelectOption<T>[]> = ref([]);
 
@@ -119,7 +134,8 @@ watch(
                 :value="item"
               >
                 <div class="py-0.5 px-2 text-sm rounded bg-transparent">
-                  {{ cacheFrameworks.find(it => it.value === item)?.label }}
+                  <!-- eslint-disable-next-line vue/no-undef-properties -->
+                  {{ cacheFrameworks.find((it: Nameless.Form.SelectOption) => it.value === item)?.label }}
                 </div>
                 <button class="flex rounded bg-transparent mr-1" @click.prevent.stop="closeTag(item)">
                   <IconRadixIconsCross2 class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsCross2>

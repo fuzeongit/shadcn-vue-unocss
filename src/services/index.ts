@@ -1,6 +1,6 @@
-import { dictionaryToOption } from '@/components/nameless/form';
-import { SelectOptions } from '@/constants/dictionary/select-options';
 import { stringify } from 'qs';
+import { SelectOptions } from '@/constants/dictionary/select-options';
+import { dictionaryToOption } from '@/components/nameless/form';
 import { FetchClient } from './request';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
@@ -33,6 +33,7 @@ export async function fetchMock(params: any): Promise<Mock.RestfulResult<Mock.Pa
 }
 
 export async function fetchMock2(value?: string): Promise<Nameless.Form.SelectOption[]> {
+  console.log(123)
   return new Promise(resolve => {
     const list = dictionaryToOption(SelectOptions);
     resolve(value ? list.filter(it => it.label.includes(value)) : list);
