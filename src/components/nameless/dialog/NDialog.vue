@@ -10,6 +10,10 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import type { DialogOption } from '.';
+defineComponent({
+  name: 'NDialog'
+});
+
 const visible = ref(false);
 const emit = defineEmits<{ (e: 'close'): void }>();
 

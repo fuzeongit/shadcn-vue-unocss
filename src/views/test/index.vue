@@ -6,10 +6,10 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 import { SelectOptions } from '@/constants/dictionary/select-options';
 import { fetchMock2 } from '@/services';
+import { dictionaryToOption } from '@/components/nameless/form';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from '@/components/ui/toast';
-import { dictionaryToOption } from '@/components/imanum/form';
 
 const mode = useColorMode();
 class Dto {
@@ -85,29 +85,22 @@ const test = async () => {
   console.log(controlledValues.value);
   controlledValues.value.str = 'str1';
 };
-
-const a = ref("1");
 </script>
 
 <template>
   <div>
-    <InCommand
+    <NInput :default-value="456" placeholder="str" clearable></NInput>
+    <NCommand
       :options="[
         { label: '123', value: '987' },
         { label: '123', value: '987' }
       ]"
-    ></InCommand>
+    ></NCommand>
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button variant="outline">
-          <Icon
-            icon="radix-icons:moon"
-            class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-          />
-          <Icon
-            icon="radix-icons:sun"
-            class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-          />
+          <IconRadixIconsMoon class="h-[1.2rem] w-[1.2rem] dark:hidden block"></IconRadixIconsMoon>
+          <IconRadixIconsSun class="h-[1.2rem] w-[1.2rem] dark:block hidden" />
           <span class="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -129,7 +122,7 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>Str</FormLabel>
           <FormControl>
-            <InInput
+            <NInput
               :model-value="field.value"
               placeholder="str"
               clearable
@@ -138,7 +131,7 @@ const a = ref("1");
               <template #suffix>
                 <IconMdiAccountCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
               </template>
-            </InInput>
+            </NInput>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
@@ -149,7 +142,7 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>Num</FormLabel>
           <FormControl>
-            <InNumberInput
+            <NNumberInput
               :model-value="field.value"
               placeholder="num"
               clearable
@@ -164,13 +157,13 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>Sel</FormLabel>
           <FormControl>
-            <InSelect
+            <NSelect
               :options="dictionaryToOption(SelectOptions)"
               placeholder="sel"
               :model-value="field.value"
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            ></InSelect>
+            ></NSelect>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
@@ -180,14 +173,14 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>RemSel</FormLabel>
           <FormControl>
-            <InSelect
+            <NSelect
               :options="fetchMock2"
               placeholder="remSel"
               :model-value="field.value"
               remote
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            ></InSelect>
+            ></NSelect>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
@@ -198,13 +191,13 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>MulSel</FormLabel>
           <FormControl>
-            <InTagsWithCombobox
+            <NTagsWithCombobox
               :options="dictionaryToOption(SelectOptions)"
               placeholder="mulSel"
               :model-value="field.value"
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            ></InTagsWithCombobox>
+            ></NTagsWithCombobox>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
@@ -215,14 +208,14 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>RemMulSel</FormLabel>
           <FormControl>
-            <InTagsWithCombobox
+            <NTagsWithCombobox
               :options="fetchMock2"
               placeholder="remMulSel"
               :model-value="field.value"
               remote
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            ></InTagsWithCombobox>
+            ></NTagsWithCombobox>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
@@ -233,12 +226,12 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>Date</FormLabel>
           <FormControl>
-            <InDatePicker
+            <NDatePicker
               placeholder="date"
               :model-value="field.value"
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            ></InDatePicker>
+            ></NDatePicker>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
@@ -249,12 +242,12 @@ const a = ref("1");
         <FormItem v-auto-animate>
           <FormLabel>DateRange</FormLabel>
           <FormControl>
-            <InDateRangePicker
+            <NDateRangePicker
               placeholder="dateRange"
               :model-value="field.value"
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            ></InDateRangePicker>
+            ></NDateRangePicker>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />

@@ -5,10 +5,10 @@ import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalize
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { useI18nInject } from '../common/i18n.inject';
-import InInputBorder from './InInputBorder.vue';
+import NInputBorder from './NInputBorder.vue';
 
 defineComponent({
-  name: 'InDatePicker'
+  name: 'NDatePicker'
 });
 
 const props = withDefaults(
@@ -71,7 +71,7 @@ const localValue = computed<CalendarDate | undefined>({
 <template>
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
-      <InInputBorder
+      <NInputBorder
         role="picker"
         :aria-expanded="open"
         :disabled="disabled"
@@ -101,7 +101,7 @@ const localValue = computed<CalendarDate | undefined>({
           <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
         </button>
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsChevronDown>
-      </InInputBorder>
+      </NInputBorder>
     </PopoverTrigger>
     <PopoverContent class="p-0 w-auto">
       <Calendar v-model="localValue" initial-focus :locale="locale" />

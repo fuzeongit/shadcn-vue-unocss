@@ -1,5 +1,4 @@
-import { HttpClient, type HttpClientOptions, type RequestOptions } from '@zeongit/http';
-import { HttpStatus } from '@zeongit/http';
+import { HttpClient, type HttpClientOptions, HttpStatus, type RequestOptions } from '@nameless/http';
 
 export class FetchClient extends HttpClient<'data', Service.RestfulResult> {
   constructor(

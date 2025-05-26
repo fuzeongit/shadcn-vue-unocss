@@ -1,18 +1,18 @@
-<script lang="ts" setup generic="T extends Imanum.Form.SelectValue">
-import type { HTMLAttributes } from 'vue';
-import { unionBy } from 'lodash-es';
+<script lang="ts" setup generic="T extends Nameless.Form.SelectValue">
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import InInputBorder from './InInputBorder.vue';
+import { unionBy } from 'lodash-es';
+import type { HTMLAttributes } from 'vue';
+import NInputBorder from './NInputBorder.vue';
 defineComponent({
-  name: 'InTagsWithCombobox'
+  name: 'NTagsWithCombobox'
 });
 
 const props = withDefaults(
   defineProps<{
     defaultValue?: T[];
     modelValue?: T[];
-    options: ((value?: string) => Promise<Imanum.Form.SelectOption<T>[]>) | Imanum.Form.SelectOption<T>[];
+    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
     // eslint-disable-next-line vue/no-reserved-props
     class?: HTMLAttributes['class'];
     remote?: boolean;
@@ -43,7 +43,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
 
 const open = ref(false);
 const bsScroll = ref<Expose.ComponentInstances['BetterScroll']>();
-const tagsInput = ref<Expose.ComponentInstances['InInputBorder']>();
+const tagsInput = ref<Expose.ComponentInstances['NInputBorder']>();
 const scrollContent = ref<HTMLDivElement>();
 const style = useElementBounding(() => tagsInput.value?.$el);
 
@@ -74,7 +74,7 @@ const frameworks = asyncComputed(
   []
 );
 
-const cacheFrameworks: Ref<Imanum.Form.SelectOption<T>[]> = ref([]);
+const cacheFrameworks: Ref<Nameless.Form.SelectOption<T>[]> = ref([]);
 
 const popoverContentStyle = computed(() => ({ width: `${style.width.value}px` }));
 
@@ -94,7 +94,7 @@ watch(
 <template>
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
-      <InInputBorder
+      <NInputBorder
         ref="tagsInput"
         :role="remote ? 'combobox' : 'select'"
         :aria-expanded="open"
@@ -140,17 +140,17 @@ watch(
         </button>
         <slot name="suffix" />
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsChevronDown>
-      </InInputBorder>
+      </NInputBorder>
     </PopoverTrigger>
     <PopoverContent class="p-0 popover" :style="popoverContentStyle">
-      <InRemoteCommand
+      <NRemoteCommand
         :search-value="searchValue"
         :model-value="modelValue"
         :options="frameworks"
         multiple
         @update:model-value="select"
         @update:search-value="searchValue = $event"
-      ></InRemoteCommand>
+      ></NRemoteCommand>
     </PopoverContent>
   </Popover>
 </template>

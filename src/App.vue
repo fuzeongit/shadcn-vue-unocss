@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 import { toast } from '@/components/ui/toast';
-import { useDialog } from './components/imanum/dialog';
-import { I18N_INJECTION_KEY } from './components/imanum/common/i18n.inject';
+import { I18N_INJECTION_KEY } from './components/nameless/common/i18n.inject';
+import { useDialog } from './components/nameless/dialog';
 const dialog = useDialog();
 window.$dialog = dialog;
 window.$toast = toast;

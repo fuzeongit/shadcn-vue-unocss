@@ -14,7 +14,7 @@ const props = defineProps<
 const emit = defineEmits<NumberFieldRootEmits>();
 
 defineComponent({
-  name: 'InNumberInput'
+  name: 'NNumberInput'
 });
 
 const suffixRef = ref<HTMLElement>();

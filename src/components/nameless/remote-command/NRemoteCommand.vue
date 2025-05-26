@@ -1,4 +1,4 @@
-<script lang="ts" setup generic="T extends Imanum.Form.SelectValue | Imanum.Form.SelectValue[]">
+<script lang="ts" setup generic="T extends Nameless.Form.SelectValue | Nameless.Form.SelectValue[]">
 import type { HTMLAttributes } from 'vue';
 import { Icon } from '@iconify/vue';
 import { Search } from 'lucide-vue-next';
@@ -6,13 +6,13 @@ import { ListboxContent, ListboxFilter, ListboxGroup, ListboxItem, ListboxRoot, 
 import { cn } from '@/lib/utils';
 
 defineComponent({
-  name: 'InRemoteCommand'
+  name: 'NRemoteCommand'
 });
 
 const props = defineProps<{
   defaultValue?: T;
   modelValue?: T;
-  options: Imanum.Form.SelectOption<Imanum.Form.SelectValue>[];
+  options: Nameless.Form.SelectOption<Nameless.Form.SelectValue>[];
   searchValue?: string;
   defaultSearchValue?: string;
   multiple?: boolean;

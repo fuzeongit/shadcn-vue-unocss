@@ -1,5 +1,5 @@
 {
-  "name": "@zeongit/http",
+  "name": "@nameless/http",
   "version": "0.0.1",
   "exports": {
     ".": "./src/index.ts"
@@ -10,7 +10,6 @@
     }
   },
   "dependencies": {
-    "@zeongit/http": "file:",
     "qs": "6.13.0"
   },
   "devDependencies": {

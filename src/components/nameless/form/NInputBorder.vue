@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 interface Props extends PrimitiveProps, /* @vue-ignore */ HTMLAttributes {}
 
 defineComponent({
-  name: 'InInputBorder'
+  name: 'NInputBorder'
 });
 
 const props = withDefaults(defineProps<Props>(), {

@@ -20,10 +20,7 @@ export default defineConfig(configEnv => {
     server: {
       host: '0.0.0.0',
       port: 5173,
-      proxy: createViteProxy(viteEnv, enableProxy),
-      fs: {
-        cachedChecks: false
-      }
+      proxy: createViteProxy(viteEnv, enableProxy)
     }
   };
 });

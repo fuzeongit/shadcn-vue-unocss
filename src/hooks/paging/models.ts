@@ -1,7 +1,7 @@
-import { Default } from '@zeongit/class';
-import type { IPageable } from 'vue-router-search';
+import { Default } from '@nameless/class';
 import { Expose, Type } from 'class-transformer';
 import { IsInt } from 'class-validator';
+import type { IPageable } from 'vue-router-search';
 import { OrderFilter } from '../order';
 import { DEFAULT_COMPONENT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from './constants';
 

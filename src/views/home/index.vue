@@ -12,12 +12,12 @@ import {
 import { SelectOptions } from '@/constants/dictionary/select-options';
 import { fetchMock2 } from '@/services';
 import { userApi } from '@/services/apis/user';
+import FilterString from '@/hooks/filter/components/FilterString.vue';
 import { FilterType } from '@/hooks/filter/constants';
 import { useTanstackPaging } from '@/hooks/paging';
-import FilterString from '@/hooks/filter/components/FilterString.vue';
 import { renderUserStatus } from '@/utils/render';
 import SortedButton from '@/components/custom/sorted-button/SortedButton.vue';
-import { dictionaryToOption } from '@/components/imanum/form';
+import { dictionaryToOption } from '@/components/nameless/form';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -78,7 +78,7 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
           </div>
         );
       },
-      cell: ({ row, column }) => {
+      cell: () => {
         return renderUserStatus(Math.round(Math.random()), true, v => console.log(v));
       }
     }),

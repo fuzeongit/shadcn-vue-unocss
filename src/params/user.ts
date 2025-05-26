@@ -1,4 +1,4 @@
-import { Default, DropEmptyString, DropNull, IsValidDate, ParseArray } from '@zeongit/class';
+import { Default, DropEmptyString, DropNull, IsValidDate, ParseArray } from '@nameless/class';
 import { Expose, Type } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { SelectOptions } from '@/constants/dictionary/select-options';

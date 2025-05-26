@@ -1,5 +1,5 @@
 interface Window {
   $fp?: import('@fingerprintjs/fingerprintjs').Agent;
-  $dialog?: ReturnType<typeof import('@/components/imanum/dialog').useDialog>;
+  $dialog?: ReturnType<typeof import('@/components/nameless/dialog').useDialog>;
   $toast?: import('@/components/ui/toast').Toast;
 }

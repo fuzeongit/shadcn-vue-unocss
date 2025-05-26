@@ -48,12 +48,12 @@ const frameworks = asyncComputed(
       </PopoverTrigger>
       <PopoverContent>
         <div class="flex flex-col gap-2">
-          <InRemoteCommand
+          <NRemoteCommand
             v-model:search-value="searchValue"
             :model-value="field.value"
             :options="frameworks"
             @update:model-value="field['onUpdate:modelValue']"
-          ></InRemoteCommand>
+          ></NRemoteCommand>
           <div class="flex items-center justify-between gap-2">
             <Button class="flex-1" variant="outline" @click="reset">重置</Button>
             <Button class="flex-1" @click="query">确定</Button>

@@ -1,6 +1,6 @@
-import { stringify } from 'qs';
+import { dictionaryToOption } from '@/components/nameless/form';
 import { SelectOptions } from '@/constants/dictionary/select-options';
-import { dictionaryToOption } from '@/components/imanum/form';
+import { stringify } from 'qs';
 import { FetchClient } from './request';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
@@ -32,7 +32,7 @@ export async function fetchMock(params: any): Promise<Mock.RestfulResult<Mock.Pa
   return (await res.json()) as Mock.RestfulResult<Mock.Pagination<Mock.UserAccount>>;
 }
 
-export async function fetchMock2(value?: string): Promise<Imanum.Form.SelectOption[]> {
+export async function fetchMock2(value?: string): Promise<Nameless.Form.SelectOption[]> {
   return new Promise(resolve => {
     const list = dictionaryToOption(SelectOptions);
     resolve(value ? list.filter(it => it.label.includes(value)) : list);

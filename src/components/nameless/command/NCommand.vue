@@ -1,15 +1,15 @@
-<script lang="ts" setup generic="T extends Imanum.Form.SelectValue | Imanum.Form.SelectValue[]">
+<script lang="ts" setup generic="T extends Nameless.Form.SelectValue | Nameless.Form.SelectValue[]">
 import { Icon } from '@iconify/vue';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
 defineComponent({
-  name: 'InCommand'
+  name: 'NCommand'
 });
 
 type UnwrapArray<T> = T extends (infer U)[] ? U : T;
 
 const props = defineProps<{
-  options: Imanum.Form.SelectOption<UnwrapArray<T>>[];
+  options: Nameless.Form.SelectOption<UnwrapArray<T>>[];
   defaultValue?: T;
   modelValue?: T;
 }>();

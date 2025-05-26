@@ -32,7 +32,7 @@ const reset = () => {
       </PopoverTrigger>
       <PopoverContent>
         <div class="flex flex-col gap-2">
-          <InNumberInput
+          <NNumberInput
             :model-value="field.value"
             :placeholder="filterOption.option.placeholder"
             :min="filterOption.option.min"
@@ -40,7 +40,7 @@ const reset = () => {
             :step="filterOption.option.step"
             clearable
             @update:model-value="field['onUpdate:modelValue']"
-          ></InNumberInput>
+          ></NNumberInput>
           <div class="flex items-center justify-between gap-2">
             <Button class="flex-1" variant="outline" @click="reset">重置</Button>
             <Button class="flex-1" @click="query">确定</Button>

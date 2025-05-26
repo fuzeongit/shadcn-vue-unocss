@@ -24,14 +24,14 @@ declare namespace QuickFilter {
 
   interface SelectOption extends Option {
     type: import('./constants').FilterType.Select;
-    options: ((value?: string) => Promise<Imanum.Form.SelectOption<T>[]>) | Imanum.Form.SelectOption<T>[];
+    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
     valueType?: 'string' | 'number';
     immediate?: boolean;
   }
 
   interface RemoteSelectOption extends Option {
     type: import('./constants').FilterType.RemoteSelect;
-    options: ((value?: string) => Promise<Imanum.Form.SelectOption<T>[]>) | Imanum.Form.SelectOption<T>[];
+    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
     valueType?: 'string' | 'number';
     searchTerm?: string;
     immediate?: boolean;
@@ -39,7 +39,7 @@ declare namespace QuickFilter {
 
   interface MultiSelectOption extends Option {
     type: import('./constants').FilterType.MultiSelect;
-    options: Imanum.MaybePromise<Imanum.Form.SelectOption<Imanum.Form.SelectValue>[]>;
+    options: Nameless.MaybePromise<Nameless.Form.SelectOption<Nameless.Form.SelectValue>[]>;
     valueType?: 'string' | 'number';
     searchTerm?: string;
     immediate?: boolean;
@@ -47,7 +47,7 @@ declare namespace QuickFilter {
 
   interface RemoteMultiSelectOption extends Option {
     type: import('./constants').FilterType.RemoteMultiSelect;
-    options: (value?: string) => Promise<Imanum.Form.SelectOption<Imanum.Form.SelectValue>[]>;
+    options: (value?: string) => Promise<Nameless.Form.SelectOption<Nameless.Form.SelectValue>[]>;
     valueType?: 'string' | 'number';
     immediate?: boolean;
   }

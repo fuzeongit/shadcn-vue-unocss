@@ -1,4 +1,4 @@
-declare namespace Imanum {
+declare namespace Nameless {
   type MaybePromise<T> = (() => Promise<T>) | T;
   namespace Form {
     type SelectValue = string | number;

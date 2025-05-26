@@ -1,7 +1,7 @@
-import { ParseArray } from '@zeongit/class';
-import type { IOrderFilter } from 'vue-router-search';
+import { ParseArray } from '@nameless/class';
 import { Expose, Type } from 'class-transformer';
 import { IsOptional, IsString } from 'class-validator';
+import type { IOrderFilter } from 'vue-router-search';
 import type { Order } from './enum';
 export const OrderDelimiter = '.';
 

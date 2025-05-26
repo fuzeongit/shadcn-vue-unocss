@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import { FilterType } from '@/hooks/filter/constants';
 import { useFilterInject } from '@/hooks/filter';
-import { cn } from '@/lib/utils';
+import { FilterType } from '@/hooks/filter/constants';
 import { FormField } from '@/components/ui/form';
+import { cn } from '@/lib/utils';
 const { search, form, filterOptions, reset } = useFilterInject()!;
 </script>
 
@@ -10,16 +10,16 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
   <div class="w-full">
     <div class="flex items-center gap-2 flex-wrap">
       <FormField v-for="item in filterOptions" v-slot="{ field }" :key="item.id" :name="item.id">
-        <InInput
+        <NInput
           v-if="item.option.type === FilterType.String"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InInput>
+        ></NInput>
 
-        <InNumberInput
+        <NNumberInput
           v-if="item.option.type === FilterType.Number"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
@@ -29,9 +29,9 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           :step="item.option.step"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InNumberInput>
+        ></NNumberInput>
 
-        <InSelect
+        <NSelect
           v-if="item.option.type === FilterType.Select"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
@@ -39,9 +39,9 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InSelect>
+        ></NSelect>
 
-        <InSelect
+        <NSelect
           v-if="item.option.type === FilterType.RemoteSelect"
           :model-value="field.value"
           remote
@@ -50,9 +50,9 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InSelect>
+        ></NSelect>
 
-        <InTagsWithCombobox
+        <NTagsWithCombobox
           v-if="item.option.type === FilterType.MultiSelect"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
@@ -60,9 +60,9 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InTagsWithCombobox>
+        ></NTagsWithCombobox>
 
-        <InTagsWithCombobox
+        <NTagsWithCombobox
           v-if="item.option.type === FilterType.RemoteMultiSelect"
           :model-value="field.value"
           remote
@@ -71,25 +71,25 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InTagsWithCombobox>
+        ></NTagsWithCombobox>
 
-        <InDatePicker
+        <NDatePicker
           v-if="item.option.type === FilterType.Date"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InDatePicker>
+        ></NDatePicker>
 
-        <InDateRangePicker
+        <NDateRangePicker
           v-if="item.option.type === FilterType.DateRange"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
           :placeholder="item.option.placeholder"
           :clearable="item.option.clearable ?? true"
           @update:model-value="field['onUpdate:modelValue']"
-        ></InDateRangePicker>
+        ></NDateRangePicker>
       </FormField>
       <Button @click="search">Search</Button>
       <Button variant="outline" @click="reset">Reset</Button>

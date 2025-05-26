@@ -4,6 +4,7 @@ import { omit } from 'lodash-es';
 import { cn } from '@/lib/utils';
 
 const props = defineProps<{
+  // eslint-disable-next-line vue/no-unused-properties
   defaultValue?: string | number;
   modelValue?: string | number;
   // eslint-disable-next-line vue/no-reserved-props
@@ -38,6 +39,8 @@ const { width } = useElementBounding(suffixRef);
       v-bind="omit(props, ['clearable', 'class'])"
       data-slot="input"
       :style="{ marginRight: width * -1 + 'px', paddingRight: width - 12 + 'px' }"
+      :placeholder="placeholder"
+      :disabled="disabled"
       @update:model-value="emit('update:modelValue', $event)"
     />
 

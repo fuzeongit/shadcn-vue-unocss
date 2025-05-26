@@ -69,7 +69,7 @@ const open = ref(false);
 <template>
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
-      <InInputBorder
+      <NInputBorder
         ole="picker"
         :aria-expanded="open"
         :disabled="disabled"
@@ -104,7 +104,7 @@ const open = ref(false);
           <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
         </button>
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsChevronDown>
-      </InInputBorder>
+      </NInputBorder>
     </PopoverTrigger>
     <PopoverContent class="w-auto p-0">
       <RangeCalendar v-model="localValue" initial-focus :number-of-months="2" :locale="locale" />

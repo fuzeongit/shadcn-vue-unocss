@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/vue';
 import { UserStatusDictionary } from '@/constants/enum/user-status';
-import { dictionaryToOption, extractOption } from '@/components/imanum/form';
+import { dictionaryToOption, extractOption } from '@/components/nameless/form';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,19 +9,19 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 
-type SelectTagOption<T extends Imanum.Form.SelectValue> = Imanum.Form.SelectOption<T> & {
-  children?: Imanum.Form.SelectOption<T>[];
+type SelectTagOption<T extends Nameless.Form.SelectValue> = Nameless.Form.SelectOption<T> & {
+  children?: Nameless.Form.SelectOption<T>[];
 };
 
-type BuildTagOptions<T extends Imanum.Form.SelectValue> = {
+type BuildTagOptions<T extends Nameless.Form.SelectValue> = {
   hasSelect: boolean;
   status?: T;
   class?: string;
-  statusOptions: Imanum.Form.SelectOption<T>[];
+  statusOptions: Nameless.Form.SelectOption<T>[];
   fillLabel?: boolean;
 };
 
-function buildTag<T extends Imanum.Form.SelectValue = Imanum.Form.SelectValue>(options: BuildTagOptions<T>) {
+function buildTag<T extends Nameless.Form.SelectValue = Nameless.Form.SelectValue>(options: BuildTagOptions<T>) {
   const label = extractOption(options.status, options.statusOptions) || (options.fillLabel ? options.status : '');
   return (
     <div
@@ -35,8 +35,8 @@ function buildTag<T extends Imanum.Form.SelectValue = Imanum.Form.SelectValue>(o
   );
 }
 
-function buildHasSelectTag<T extends Imanum.Form.SelectValue = Imanum.Form.SelectValue>(
-  children: Imanum.Form.SelectOption<T>[],
+function buildHasSelectTag<T extends Nameless.Form.SelectValue = Nameless.Form.SelectValue>(
+  children: Nameless.Form.SelectOption<T>[],
   options: BuildTagOptions<T>,
   handleSelect?: (status?: T) => void
 ) {
@@ -45,8 +45,8 @@ function buildHasSelectTag<T extends Imanum.Form.SelectValue = Imanum.Form.Selec
       <DropdownMenuTrigger as-child>{buildTag(options)}</DropdownMenuTrigger>
       <DropdownMenuContent>
         {children.map(it => (
-          <DropdownMenuItem onClick={() => handleSelect?.(it.value)}>
-            {extractOption(it.value, children)}
+          <DropdownMenuItem key={it.value} asChild>
+            <div onClick={() => handleSelect?.(it.value)}>{extractOption(it.value, children)}</div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -54,10 +54,10 @@ function buildHasSelectTag<T extends Imanum.Form.SelectValue = Imanum.Form.Selec
   );
 }
 
-function buildPermissionTag<T extends Imanum.Form.SelectValue = Imanum.Form.SelectValue>(
+function buildPermissionTag<T extends Nameless.Form.SelectValue = Nameless.Form.SelectValue>(
   permission: boolean,
   options: {
-    statusOptions: Imanum.Form.SelectOption<T>[];
+    statusOptions: Nameless.Form.SelectOption<T>[];
     tagOptions: SelectTagOption<T>[];
     status: T;
     handleSelect?: (status?: T) => void;

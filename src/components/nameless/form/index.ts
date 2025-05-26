@@ -1,7 +1,7 @@
-export const dictionaryToOption = <T extends Imanum.Form.SelectValue = Imanum.Form.SelectValue>(
+export const dictionaryToOption = <T extends Nameless.Form.SelectValue = Nameless.Form.SelectValue>(
   dictionary: any,
   valueToNumber: boolean = false
-): Imanum.Form.SelectOption<T>[] => {
+): Nameless.Form.SelectOption<T>[] => {
   return Object.keys(dictionary).map(key => ({
     value: (valueToNumber ? Number(key) : key) as T,
     label: dictionary[key]
@@ -9,8 +9,8 @@ export const dictionaryToOption = <T extends Imanum.Form.SelectValue = Imanum.Fo
 };
 
 export const extractOption = (
-  value: Imanum.Form.SelectValue | undefined | null,
-  options: Imanum.Form.SelectOption[]
+  value: Nameless.Form.SelectValue | undefined | null,
+  options: Nameless.Form.SelectOption[]
 ) => {
   if (value === undefined || value === null) {
     return '';

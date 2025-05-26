@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import type { DateValue } from '@internationalized/date';
 import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 import { useFilterInject } from '@/hooks/filter';
-import { useI18nInject } from '@/components/imanum/common/i18n.inject';
+import { useI18nInject } from '@/components/nameless/common/i18n.inject';
 import { FormField } from '@/components/ui/form';
 const props = defineProps<{
   id: string;

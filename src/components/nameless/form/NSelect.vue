@@ -1,19 +1,19 @@
-<script lang="ts" setup generic="T extends Imanum.Form.SelectValue">
-import { type HTMLAttributes } from 'vue';
-import { unionBy } from 'lodash-es';
+<script lang="ts" setup generic="T extends Nameless.Form.SelectValue">
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import InInputBorder from './InInputBorder.vue';
+import { unionBy } from 'lodash-es';
+import { type HTMLAttributes } from 'vue';
+import NInputBorder from './NInputBorder.vue';
 
 defineComponent({
-  name: 'InSelect'
+  name: 'NSelect'
 });
 
 const props = withDefaults(
   defineProps<{
     defaultValue?: T;
     modelValue?: T;
-    options: ((value?: string) => Promise<Imanum.Form.SelectOption<T>[]>) | Imanum.Form.SelectOption<T>[];
+    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
     // eslint-disable-next-line vue/no-reserved-props
     class?: HTMLAttributes['class'];
     remote?: boolean;
@@ -56,7 +56,7 @@ const frameworks = asyncComputed(
 );
 const popoverContentStyle = computed(() => ({ width: `${style.width.value}px` }));
 
-const cacheFrameworks: Ref<Imanum.Form.SelectOption<T>[]> = ref([]);
+const cacheFrameworks: Ref<Nameless.Form.SelectOption<T>[]> = ref([]);
 
 const select = (option: T) => {
   open.value = false;
@@ -75,7 +75,7 @@ watch(
 <template>
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
-      <InInputBorder
+      <NInputBorder
         ref="divRef"
         :role="remote ? 'combobox' : 'select'"
         :aria-expanded="open"
@@ -106,16 +106,16 @@ watch(
         </button>
         <slot name="suffix" />
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsChevronDown>
-      </InInputBorder>
+      </NInputBorder>
     </PopoverTrigger>
     <PopoverContent class="p-0" :style="popoverContentStyle">
-      <InRemoteCommand
+      <NRemoteCommand
         :search-value="searchValue"
         :model-value="modelValue"
         :options="frameworks"
         @update:model-value="select"
         @update:search-value="searchValue = $event"
-      ></InRemoteCommand>
+      ></NRemoteCommand>
     </PopoverContent>
   </Popover>
 </template>
