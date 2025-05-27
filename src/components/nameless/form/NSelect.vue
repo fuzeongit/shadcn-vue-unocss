@@ -108,7 +108,12 @@ watch(
         "
       >
         <div
-          v-if="cacheFrameworks.find((it: Nameless.Form.SelectOption) => it.value === modelValue)"
+          v-if="
+            cacheFrameworks.find(
+              // eslint-disable-next-line vue/no-undef-properties
+              (it: Nameless.Form.SelectOption) => it.value === modelValue
+            )
+          "
           class="flex-1 truncate"
         >
           {{ cacheFrameworks.find((it: Nameless.Form.SelectOption) => it.value === modelValue)?.label ?? modelValue }}

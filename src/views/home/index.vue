@@ -80,6 +80,7 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
         );
       },
       cell: () => {
+        // eslint-disable-next-line no-console
         return renderUserStatus(Math.round(Math.random()), true, v => console.log(v));
       }
     }),

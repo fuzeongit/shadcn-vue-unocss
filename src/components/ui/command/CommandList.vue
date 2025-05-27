@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { ListboxContentProps } from 'reka-ui'
-import { cn } from '@/lib/utils'
-import { ListboxContent, useForwardProps } from 'reka-ui'
-import { computed, type HTMLAttributes } from 'vue'
+import { type HTMLAttributes, computed } from 'vue';
+import type { ListboxContentProps } from 'reka-ui';
+import { ListboxContent, useForwardProps } from 'reka-ui';
+import { cn } from '@/lib/utils';
 
-const props = defineProps<ListboxContentProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<ListboxContentProps & { class?: HTMLAttributes['class'] }>();
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+  const { class: _, ...delegated } = props;
 
-  return delegated
-})
+  return delegated;
+});
 
-const forwarded = useForwardProps(delegatedProps)
+const forwarded = useForwardProps(delegatedProps);
 </script>
 
 <template>

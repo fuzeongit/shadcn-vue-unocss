@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import type { PrimitiveProps } from 'reka-ui'
-import { cn } from '@/lib/utils'
-import { Primitive } from 'reka-ui'
-import { computed, type HTMLAttributes } from 'vue'
-import { useCommand } from '.'
+import { type HTMLAttributes, computed } from 'vue';
+import type { PrimitiveProps } from 'reka-ui';
+import { Primitive } from 'reka-ui';
+import { cn } from '@/lib/utils';
+import { useCommand } from '.';
 
-const props = defineProps<PrimitiveProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<PrimitiveProps & { class?: HTMLAttributes['class'] }>();
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+  const { class: _, ...delegated } = props;
 
-  return delegated
-})
+  return delegated;
+});
 
-const { filterState } = useCommand()
-const isRender = computed(() => !!filterState.search && filterState.filtered.count === 0,
-)
+const { filterState } = useCommand();
+const isRender = computed(() => Boolean(filterState.search) && filterState.filtered.count === 0);
 </script>
 
 <template>

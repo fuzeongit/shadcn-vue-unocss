@@ -33,7 +33,6 @@ export async function fetchMock(params: any): Promise<Mock.RestfulResult<Mock.Pa
 }
 
 export async function fetchMock2(value?: string): Promise<Nameless.Form.SelectOption[]> {
-  console.log(123)
   return new Promise(resolve => {
     const list = dictionaryToOption(SelectOptions);
     resolve(value ? list.filter(it => it.label.includes(value)) : list);

@@ -84,7 +84,6 @@ const test = async () => {
   // resetForm({ values: controlledValues.value });
   // await nextTick();
   // validateField('str');
-  console.log(controlledValues.value);
   controlledValues.value.str = 'str1';
 };
 </script>

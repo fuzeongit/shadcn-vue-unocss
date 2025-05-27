@@ -3,14 +3,14 @@ import { defineConfig } from '@soybeanjs/eslint-config';
 export default defineConfig(
   {
     vue: true,
-    ignores: ['src/components/ui/**']
+    ignores: ['node_modules/**', 'dist/**', 'src/components/ui/**']
   },
   {
     rules: {
       'vue/multi-word-component-names': [
         'warn',
         {
-          ignores: ['index', 'App', 'Register', '[id]', '[url]']
+          ignores: ['index', 'App']
         }
       ],
       'vue/component-name-in-template-casing': [
