@@ -19,7 +19,11 @@ export default defineConfig({
   content: {
     pipeline: {
       // 包括所有前端文件
-      include: [/\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/, /src\/components\/ui\/.*\.[jt]s($|\?)/]
+      include: [
+        /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
+        /src\/components\/ui\/.*\.[jt]s($|\?)/,
+        /src\/plugins\/.*\.[jt]s($|\?)/
+      ]
     }
   },
   presets: [

@@ -13,17 +13,20 @@ import { setupDayjs } from './plugins/dayjs';
 import { setupStore } from './store';
 
 async function setupApp() {
+  const { setupLoading } = await import('./plugins/loading3');
+  setupLoading();
+
   setupDayjs();
 
   const app = createApp(App);
-
-  setupStore(app);
 
   setupI18n(app);
 
   await loadLanguageAsync();
 
-  setupRouter(app);
+  setupStore(app);
+
+  await setupRouter(app);
 
   setupFp();
 

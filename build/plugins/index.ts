@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import ViteCompression from 'vite-plugin-compression';
 import VueDevTools from 'vite-plugin-vue-devtools';
+import solid from 'vite-plugin-solid';
 import { visualizer } from 'rollup-plugin-visualizer';
 import UnoCSS from 'unocss/vite';
 import unplugin from './unplugin';
@@ -36,6 +37,10 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     //     ]
     //   }
     // })
+    solid({
+      include: ['src/plugins/loading3.tsx'] // 🔥 建议加 include 限制范围，避免冲突
+    }),
+   
   ];
   return plugins;
 }
