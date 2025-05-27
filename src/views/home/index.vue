@@ -173,6 +173,10 @@ const change = () => {
 <template>
   <div class="w-full">
     {{ $t('test') }}
+    <icon-local-vue></icon-local-vue>
+    <IconLocalVue></IconLocalVue>
+    <SvgIcon local-icon="vue" class="h-6 w-6"></SvgIcon>
+    <SvgIcon icon="radix-icons:moon" class="h-6 w-6"></SvgIcon>
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button variant="outline">

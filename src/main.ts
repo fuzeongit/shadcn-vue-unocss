@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'virtual:svg-icons-register';
 import '@unocss/reset/tailwind.css';
 import 'virtual:uno.css';
 import '@/styles/global.css';

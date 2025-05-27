@@ -15,7 +15,6 @@ export const views: Record<RouteFileKey, RawRouteComponent> = {
   _builtin403: () => import("@/views/_builtin/403/index.vue"),
   _builtin404: () => import("@/views/_builtin/404/index.vue"),
   _builtin500: () => import("@/views/_builtin/500/index.vue"),
-  _builtinIframePageUrl: () => import("@/views/_builtin/iframe-page/[url].vue"),
   Home: () => import("@/views/home/index.vue"),
   Test: () => import("@/views/test/index.vue"),
 };
