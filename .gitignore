@@ -27,3 +27,5 @@ pnpm-lock.yaml
 *.sw?
 
 .temp
+
+stats.html
