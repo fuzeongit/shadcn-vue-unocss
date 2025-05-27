@@ -1,5 +1,7 @@
 <script setup lang="tsx">
 import { Icon } from '@iconify/vue';
+import { routes } from '@/router/_generated/routes';
+import SvgIcon from '@/components/custom/SvgIcon.vue';
 
 // This is sample data.
 const data = {
@@ -112,23 +114,31 @@ const data = {
     //   ]
     // }
   ],
-  projects: [
-    {
-      name: 'home',
-      url: '/home',
-      icon: <Icon icon="lucide:frame"></Icon>
-    },
-    {
-      name: 'data-table',
-      url: '/data-table',
-      icon: <Icon icon="lucide:pie-chart"></Icon>
-    },
-    {
-      name: 'menu',
-      url: 'menu',
-      icon: <Icon icon="lucide:map"></Icon>
-    }
-  ]
+  projects: routes
+    .filter(route => !route.meta?.constant)
+    .map(route => ({
+      name: route.name as string,
+      url: route.path,
+      icon: <SvgIcon icon={route.meta?.icon} local-icon={route.meta?.localIcon} />
+    }))
+
+  // [
+  //   {
+  //     name: 'home',
+  //     url: '/home',
+  //     icon: <Icon icon="lucide:frame"></Icon>
+  //   },
+  //   {
+  //     name: 'data-table',
+  //     url: '/data-table',
+  //     icon: <Icon icon="lucide:pie-chart"></Icon>
+  //   },
+  //   {
+  //     name: 'menu',
+  //     url: 'menu',
+  //     icon: <Icon icon="lucide:map"></Icon>
+  //   }
+  // ]
 };
 
 const activeTeam = ref(data.teams[0]);

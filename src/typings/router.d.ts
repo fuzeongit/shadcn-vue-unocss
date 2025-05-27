@@ -8,5 +8,24 @@ declare module 'vue-router' {
      * It can be used in document title
      */
     title: string;
+    /**
+     * Is constant route
+     *
+     * when it is set to true, there will be no login verification and no permission verification to access the route
+     */
+    constant?: boolean | null;
+    /**
+     * Iconify icon
+     *
+     * It can be used in the menu or breadcrumb
+     */
+    icon?: string;
+    /**
+     * Local icon
+     *
+     * In "src/assets/svg-icon", if it is set, the icon will be ignored
+     */
+    localIcon?: string;
+    order?: number | null;
   }
 }

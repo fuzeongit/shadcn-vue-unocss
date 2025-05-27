@@ -27,7 +27,6 @@ declare module "vue-router/auto-routes" {
     "_builtin403": RouteRecordInfo<"_builtin403", "/_builtin/403", Record<never, never>, Record<never, never>>;
     "_builtin404": RouteRecordInfo<"_builtin404", "/_builtin/404", Record<never, never>, Record<never, never>>;
     "_builtin500": RouteRecordInfo<"_builtin500", "/_builtin/500", Record<never, never>, Record<never, never>>;
-    "_builtinIframePageUrl": RouteRecordInfo<"_builtinIframePageUrl", "/_builtin/iframe-page/:url", { url: ParamValue<true> }, { url: ParamValue<false> }>;
     "Home": RouteRecordInfo<"Home", "/home", Record<never, never>, Record<never, never>>;
     "Test": RouteRecordInfo<"Test", "/test", Record<never, never>, Record<never, never>>
   }

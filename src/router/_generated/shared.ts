@@ -12,7 +12,6 @@ const routePathMap: RoutePathMap = {
   "_builtin403": "/_builtin/403",
   "_builtin404": "/_builtin/404",
   "_builtin500": "/_builtin/500",
-  "_builtinIframePageUrl": "/_builtin/iframe-page/:url",
   "Home": "/home",
   "Test": "/test",
 };
