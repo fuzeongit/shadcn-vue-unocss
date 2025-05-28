@@ -29,18 +29,9 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
       brotliSize: true // 显示 brotli 之后的体积
     }),
     ViteCompression({ algorithm: 'gzip' }),
-    // babel({
-    //   babelConfig: {
-    //     plugins: [
-    //       ['@babel/plugin-proposal-decorators', { legacy: true }],
-    //       ['@babel/plugin-proposal-class-properties', { loose: true }]
-    //     ]
-    //   }
-    // })
     solid({
-      include: ['src/plugins/loading3.tsx'] // 🔥 建议加 include 限制范围，避免冲突
-    }),
-   
+      include: ['src/widgets/**', 'src/plugins/loading3.tsx'] // 🔥 建议加 include 限制范围，避免冲突
+    })
   ];
   return plugins;
 }

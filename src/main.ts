@@ -13,7 +13,7 @@ import { setupDayjs } from './plugins/dayjs';
 import { setupStore } from './store';
 
 async function setupApp() {
-  const { setupLoading } = await import('./plugins/loading3');
+  const { setupLoading } = await import('./plugins/loading2');
   setupLoading();
 
   setupDayjs();
