@@ -129,7 +129,7 @@ watch(
                   <!-- eslint-disable-next-line vue/no-undef-properties -->
                   {{ cacheFrameworks.find((it: Nameless.Form.SelectOption) => it.value === item)?.label }}
                 </div>
-                <button class="flex rounded bg-transparent mr-1" @click.prevent.stop="closeTag(item)">
+                <button class="flex rounded bg-transparent mr-1" tabindex="-1" @click.prevent.stop="closeTag(item)">
                   <IconRadixIconsCross2 class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsCross2>
                 </button>
               </div>
@@ -139,6 +139,7 @@ watch(
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <button
           v-if="clearable"
+          tabindex="-1"
           :data-clearable="modelValue.length && !disabled ? 'visible' : 'hidden'"
           :class="cn('items-center px-1 hidden group-hover/input_border:data-[clearable=visible]:flex')"
           data-slot="clear"

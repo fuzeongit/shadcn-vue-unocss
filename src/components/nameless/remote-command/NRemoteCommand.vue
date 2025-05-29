@@ -72,7 +72,7 @@ const searchValue = useVModel(props, 'searchValue', emit, {
             :key="option.value"
             :class="
               cn(
-                'relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0'
+                'relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 group/command_item'
               )
             "
             :value="option.value"
@@ -80,14 +80,7 @@ const searchValue = useVModel(props, 'searchValue', emit, {
             <span class="absolute right-2 flex items-center justify-center">
               <Icon
                 icon="radix-icons:check"
-                :class="
-                  cn(
-                    'mr-2 h-4 w-4',
-                    (Array.isArray(modelValue) ? modelValue.includes(option.value) : modelValue === option.value)
-                      ? 'opacity-100'
-                      : 'opacity-0'
-                  )
-                "
+                :class="cn('mr-2 h-4 w-4 hidden group-data-[state=checked]/command_item:flex')"
               />
             </span>
             {{ option.label }}

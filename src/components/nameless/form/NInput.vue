@@ -23,7 +23,7 @@ const emit = defineEmits<{
   <NInputBorder as="div" role="input" :disabled="disabled" :class="cn('group/input_border', props.class)">
     <Input
       v-bind="omit(props, ['clearable', 'class'])"
-      class="border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto"
+      class="border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto peer"
       data-slot="input"
       :placeholder="placeholder"
       :disabled="disabled"
@@ -32,6 +32,7 @@ const emit = defineEmits<{
 
     <button
       v-if="clearable"
+      tabindex="-1"
       :data-clearable="
         modelValue !== undefined && modelValue !== null && modelValue !== '' && !disabled ? 'visible' : 'hidden'
       "

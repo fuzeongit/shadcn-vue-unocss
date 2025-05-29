@@ -112,6 +112,7 @@ watch(
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <button
           v-if="clearable"
+          tabindex="-1"
           :data-clearable="
             modelValue !== undefined && modelValue !== null && modelValue !== '' && !disabled ? 'visible' : 'hidden'
           "

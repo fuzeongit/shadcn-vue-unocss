@@ -31,6 +31,7 @@ defineComponent({
         />
         <button
           v-if="clearable"
+          tabindex="-1"
           :data-clearable="modelValue !== undefined && modelValue !== null && !disabled ? 'visible' : 'hidden'"
           :class="cn('hidden items-center px-1 group-hover/input_border:data-[clearable=visible]:flex')"
           data-slot="clear"

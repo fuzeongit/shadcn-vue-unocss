@@ -88,6 +88,7 @@ const open = ref(false);
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <button
           v-if="clearable"
+          tabindex="-1"
           :data-clearable="modelValue?.length && !disabled ? 'visible' : 'hidden'"
           :class="cn('items-center px-1 hidden group-hover/input_border:data-[clearable=visible]:flex')"
           data-slot="clear"
