@@ -114,7 +114,7 @@ watch(
         :role="remote ? 'combobox' : 'select'"
         :aria-expanded="open"
         :disabled="disabled"
-        :class="cn('flex flex-nowrap group/input_border', props.class)"
+        :class="cn('group/input_border', props.class)"
       >
         <div v-if="modelValue?.length" class="w-full overflow-hidden">
           <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: true }">

@@ -75,7 +75,7 @@ const localValue = computed<CalendarDate | undefined>({
         role="picker"
         :aria-expanded="open"
         :disabled="disabled"
-        :class="cn('flex flex-nowrap group/input_border', props.class)"
+        :class="cn('group/input_border', props.class)"
       >
         <template v-if="modelValue">
           <div class="flex-1 truncate">

@@ -19,7 +19,7 @@ defineComponent({
 </script>
 
 <template>
-  <NInputBorder as="div" role="input" :disabled="disabled" class="group/input_border">
+  <NInputBorder as="div" role="input" :disabled="disabled" :class="cn('group/input_border', props.class)">
     <NumberField
       v-bind="props"
       @update:model-value="emit('update:modelValue', (Number.isNaN($event) ? undefined : $event) as any)"

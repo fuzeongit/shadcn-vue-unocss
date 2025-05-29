@@ -73,7 +73,7 @@ const open = ref(false);
         ole="picker"
         :aria-expanded="open"
         :disabled="disabled"
-        :class="cn('flex flex-nowrap group/input_border', props.class)"
+        :class="cn('group/input_border', props.class)"
       >
         <div v-if="localValue.start" class="flex-1 truncate">
           <template v-if="localValue.end">

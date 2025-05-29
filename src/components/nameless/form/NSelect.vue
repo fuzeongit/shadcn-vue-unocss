@@ -96,7 +96,7 @@ watch(
         :role="remote ? 'combobox' : 'select'"
         :aria-expanded="open"
         :disabled="disabled"
-        :class="cn('flex flex-nowrap group/input_border', props.class)"
+        :class="cn('group/input_border', props.class)"
       >
         <div
           v-if="
