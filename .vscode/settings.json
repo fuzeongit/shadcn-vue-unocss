@@ -23,7 +23,6 @@
     "components.json": true,
     "tsconfig.json": true,
     // "uno.config.ts": true,
-    "er.config.ts": true,
     "vite.config.ts": true,
     "stats.html": true
   },

@@ -24,6 +24,8 @@ function filterConstantHiddenRoutes(routes: GeneratedRoute[]): MenuItem[] {
         url: it.path,
         icon: it.meta?.icon,
         localIcon: it.meta?.localIcon,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         title: $t(it.meta!.i18nKey!)
       };
 
