@@ -151,7 +151,10 @@ const test = async () => {
               @update:model-value="field['onUpdate:modelValue']"
             >
               <template #suffix>
-                <IconMdiAccountCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
+                <div class="flex-center">
+                  USDT
+                  <IconMdiAccountCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
+                </div>
               </template>
             </NInput>
           </FormControl>
@@ -169,7 +172,14 @@ const test = async () => {
               placeholder="num"
               clearable
               @update:model-value="field['onUpdate:modelValue']"
-            />
+            >
+              <template #suffix>
+                <div class="flex-center">
+                  USDT
+                  <IconMdiAccountCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
+                </div>
+              </template>
+            </NNumberInput>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />

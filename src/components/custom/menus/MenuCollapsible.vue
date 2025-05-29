@@ -40,7 +40,7 @@ watch(
           <IconLucideChevronRight
             v-if="menu.children?.length"
             :data-state="open ? 'open' : 'closed'"
-            class="ml-auto transition-transform duration-200 group-[.test]/collapsible:rotate-90 data-[state=open]:rotate-90"
+            class="ml-auto transition-transform duration-200 data-[state=open]:rotate-90"
           />
         </SidebarMenuButton>
       </CollapsibleTrigger>

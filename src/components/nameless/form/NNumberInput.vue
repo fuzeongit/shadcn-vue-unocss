@@ -16,46 +16,35 @@ const emit = defineEmits<NumberFieldRootEmits>();
 defineComponent({
   name: 'NNumberInput'
 });
-
-const suffixRef = ref<HTMLElement>();
-
-const { width } = useElementBounding(suffixRef);
 </script>
 
 <template>
-  <NumberField
-    v-bind="props"
-    @update:model-value="emit('update:modelValue', (Number.isNaN($event) ? undefined : $event) as any)"
-  >
-    <NumberFieldContent
-      class="w-full flex"
-      :class="
-        cn({
-          '[&>div>[data-slot=clear]]:hover:flex': modelValue !== undefined && modelValue !== null && !disabled
-        })
-      "
+  <NInputBorder as="div" role="input" :disabled="disabled" class="group/input_border">
+    <NumberField
+      v-bind="props"
+      @update:model-value="emit('update:modelValue', (Number.isNaN($event) ? undefined : $event) as any)"
     >
-      <NumberFieldInput
-        :placeholder="placeholder"
-        :class="cn('w-full px-3')"
-        :style="{ marginRight: width * -1 + 'px' }"
-      />
-      <div ref="suffixRef" class="flex items-center px-3">
+      <NumberFieldContent class="w-full flex">
+        <NumberFieldInput
+          :placeholder="placeholder"
+          :class="cn('w-full border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto ')"
+        />
         <button
           v-if="clearable"
-          :class="cn('flex items-center hidden px-1')"
+          :data-clearable="modelValue !== undefined && modelValue !== null && !disabled ? 'visible' : 'hidden'"
+          :class="cn('hidden items-center px-1 group-hover/input_border:data-[clearable=visible]:flex')"
           data-slot="clear"
           type="button"
           @click="emit('update:modelValue', undefined as any)"
         >
           <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
         </button>
+        <slot name="suffix" />
         <NumberFieldDecrement />
         <NumberFieldIncrement />
-        <slot name="suffix" />
-      </div>
-    </NumberFieldContent>
-  </NumberField>
+      </NumberFieldContent>
+    </NumberField>
+  </NInputBorder>
 </template>
 
 <style></style>

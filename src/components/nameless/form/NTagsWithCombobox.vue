@@ -114,15 +114,7 @@ watch(
         :role="remote ? 'combobox' : 'select'"
         :aria-expanded="open"
         :disabled="disabled"
-        :class="
-          cn(
-            'flex flex-nowrap',
-            {
-              '[&>[data-slot=clear]]:hover:flex': modelValue.length && !disabled
-            },
-            props.class
-          )
-        "
+        :class="cn('flex flex-nowrap group/input_border', props.class)"
       >
         <div v-if="modelValue?.length" class="w-full overflow-hidden">
           <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: true }">
@@ -147,7 +139,8 @@ watch(
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <button
           v-if="clearable"
-          :class="cn('flex items-center px-1 hidden')"
+          :data-clearable="modelValue.length && !disabled ? 'visible' : 'hidden'"
+          :class="cn('items-center px-1 hidden group-hover/input_border:data-[clearable=visible]:flex')"
           data-slot="clear"
           type="button"
           @click.prevent.stop="emit('update:modelValue', [])"

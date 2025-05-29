@@ -75,15 +75,7 @@ const localValue = computed<CalendarDate | undefined>({
         role="picker"
         :aria-expanded="open"
         :disabled="disabled"
-        :class="
-          cn(
-            'flex flex-nowrap',
-            {
-              '[&>[data-slot=clear]]:hover:flex': modelValue !== undefined && modelValue !== null && !disabled
-            },
-            props.class
-          )
-        "
+        :class="cn('flex flex-nowrap group/input_border', props.class)"
       >
         <template v-if="modelValue">
           <div class="flex-1 truncate">
@@ -93,13 +85,15 @@ const localValue = computed<CalendarDate | undefined>({
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <button
           v-if="clearable"
-          :class="cn('flex items-center px-1 hidden')"
+          :data-clearable="modelValue !== undefined && modelValue !== null && !disabled ? 'visible' : 'hidden'"
+          :class="cn('items-center px-1 hidden group-hover/input_border:data-[clearable=visible]:flex')"
           data-slot="clear"
           type="button"
           @click.prevent.stop="emit('update:modelValue', undefined as any)"
         >
           <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
         </button>
+        <slot name="suffix" />
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsChevronDown>
       </NInputBorder>
     </PopoverTrigger>

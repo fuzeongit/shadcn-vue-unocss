@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
     :as-child="props.asChild"
     :class="
       cn(
-        'flex flex-wrap h-9 w-full items-center text-left rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium data-[focused]:outline-none data-[focused]:ring-1 data-[focused]:ring-ring data-[state=open]:outline-none data-[state=open]:ring-1 data-[state=open]:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+        'flex flex-wrap h-9 w-full items-center text-left rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium has-[:focus-visible]:ring-1 has-[:focus-visible]:ring-ring outline-none data-[state=open]:ring-1 data-[state=open]:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
         props.class
       )
     "

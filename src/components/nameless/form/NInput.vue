@@ -17,44 +17,42 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', payload?: string | number): void;
 }>();
-
-const suffixRef = ref<HTMLElement>();
-
-const { width } = useElementBounding(suffixRef);
 </script>
 
 <template>
-  <div
-    :class="
-      cn(
-        'w-full flex',
-        modelValue !== undefined && modelValue !== null && modelValue !== '' && !disabled
-          ? '[&>div>[data-slot=clear]]:hover:flex'
-          : '',
-        props.class
-      )
-    "
+  <NInputBorder
+    as="div"
+    role="input"
+    :disabled="disabled"
+    :class="cn('flex flex-nowrap group/input_border', props.class)"
   >
     <Input
       v-bind="omit(props, ['clearable', 'class'])"
+      class="border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto"
       data-slot="input"
-      :style="{ marginRight: width * -1 + 'px', paddingRight: width - 12 + 'px' }"
       :placeholder="placeholder"
       :disabled="disabled"
       @update:model-value="emit('update:modelValue', $event)"
     />
 
-    <div ref="suffixRef" class="flex items-center px-3">
-      <button
-        v-if="clearable"
-        :class="cn('flex items-center px-1 hidden')"
-        data-slot="clear"
-        type="button"
-        @click="emit('update:modelValue')"
-      >
-        <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
-      </button>
-      <slot name="suffix" />
-    </div>
-  </div>
+    <button
+      v-if="clearable"
+      :data-clearable="
+        modelValue !== undefined && modelValue !== null && modelValue !== '' && !disabled ? 'visible' : 'hidden'
+      "
+      :class="cn('hidden items-center px-1 group-hover/input_border:data-[clearable=visible]:flex')"
+      data-slot="clear"
+      type="button"
+      @click="emit('update:modelValue')"
+    >
+      <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
+    </button>
+    <slot name="suffix" />
+  </NInputBorder>
 </template>
+
+<style lang="css" scoped>
+.parent:has(input:focus-visible) {
+  color: red;
+}
+</style>
