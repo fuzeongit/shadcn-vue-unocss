@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.5.1",
+    "@elegant-router/vue": "^0.3.8",
     "@fingerprintjs/fingerprintjs": "^4.5.1",
     "@formkit/auto-animate": "^0.8.2",
     "@iconify/vue": "^4.1.2",
@@ -32,7 +33,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
-    "elegant-router": "^1.0.2",
     "lit": "^3.3.0",
     "lodash-es": "^4.17.21",
     "lucide-vue-next": "^0.483.0",

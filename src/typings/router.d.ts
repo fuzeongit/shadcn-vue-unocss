@@ -13,7 +13,7 @@ declare module 'vue-router' {
      *
      * when it is set to true, there will be no login verification and no permission verification to access the route
      */
-    constant?: boolean | null;
+    constant?: boolean;
     /**
      * Iconify icon
      *
@@ -26,6 +26,9 @@ declare module 'vue-router' {
      * In "src/assets/svg-icon", if it is set, the icon will be ignored
      */
     localIcon?: string;
-    order?: number | null;
+
+    order?: number;
+
+    permissions?: PermissionModule.Permission[];
   }
 }

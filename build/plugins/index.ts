@@ -7,6 +7,7 @@ import solid from 'vite-plugin-solid';
 import { visualizer } from 'rollup-plugin-visualizer';
 import UnoCSS from 'unocss/vite';
 import unplugin from './unplugin';
+import { setupElegantRouter } from './router';
 /**
  * vite插件
  *
@@ -19,6 +20,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
     UnoCSS(),
     ...unplugin(viteEnv),
     VueDevTools(),
+    setupElegantRouter(),
     // viteMockServe({
     //   mockPath: 'mock', // mock文件夹路径
     //   enable: true // 只有开发环境才开启mock
