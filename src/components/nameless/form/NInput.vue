@@ -41,19 +41,11 @@ const emit = defineEmits<{
       @update:model-value="emit('update:modelValue', $event)"
     />
 
-    <button
+    <NClearButton
       v-if="clearable"
-      tabindex="-1"
-      :data-clearable="
-        modelValue !== undefined && modelValue !== null && modelValue !== '' && !disabled ? 'visible' : 'hidden'
-      "
-      :class="cn('hidden items-center px-1 group-hover/input_border:data-[clearable=visible]:flex')"
-      data-slot="clear"
-      type="button"
+      :visible="modelValue !== undefined && modelValue !== null && modelValue !== '' && !disabled"
       @click="emit('update:modelValue')"
-    >
-      <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
-    </button>
+    ></NClearButton>
     <slot name="suffix" />
   </NInputBorder>
 </template>

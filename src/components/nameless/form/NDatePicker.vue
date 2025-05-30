@@ -84,17 +84,11 @@ const localValue = computed<CalendarDate | undefined>({
           </div>
         </template>
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
-        <button
+        <NClearButton
           v-if="clearable"
-          tabindex="-1"
-          :data-clearable="modelValue !== undefined && modelValue !== null && !disabled ? 'visible' : 'hidden'"
-          :class="cn('items-center px-1 hidden group-hover/input_border:data-[clearable=visible]:flex')"
-          data-slot="clear"
-          type="button"
-          @click.prevent.stop="emit('update:modelValue', undefined as any)"
-        >
-          <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
-        </button>
+          :visible="modelValue !== undefined && modelValue !== null && !disabled"
+          @click="emit('update:modelValue', undefined as any)"
+        ></NClearButton>
         <slot name="suffix" />
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsChevronDown>
       </NInputBorder>

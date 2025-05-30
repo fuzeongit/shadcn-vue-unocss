@@ -90,6 +90,7 @@ declare module 'vue' {
     Input: typeof import('./../components/ui/input/Input.vue')['default']
     Label: typeof import('./../components/ui/label/Label.vue')['default']
     MenuCollapsible: typeof import('./../components/custom/menus/MenuCollapsible.vue')['default']
+    NClearButton: typeof import('./../components/nameless/form/NClearButton.vue')['default']
     NCommand: typeof import('./../components/nameless/command/NCommand.vue')['default']
     NDatePicker: typeof import('./../components/nameless/form/NDatePicker.vue')['default']
     NDateRangePicker: typeof import('./../components/nameless/form/NDateRangePicker.vue')['default']

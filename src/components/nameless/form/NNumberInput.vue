@@ -37,17 +37,11 @@ defineComponent({
           :placeholder="placeholder"
           :class="cn('w-full border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto ')"
         />
-        <button
+        <NClearButton
           v-if="clearable"
-          tabindex="-1"
-          :data-clearable="modelValue !== undefined && modelValue !== null && !disabled ? 'visible' : 'hidden'"
-          :class="cn('hidden items-center px-1 group-hover/input_border:data-[clearable=visible]:flex')"
-          data-slot="clear"
-          type="button"
+          :visible="modelValue !== undefined && modelValue !== null && !disabled"
           @click="emit('update:modelValue', undefined as any)"
-        >
-          <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
-        </button>
+        ></NClearButton>
         <slot name="suffix" />
         <NumberFieldDecrement />
         <NumberFieldIncrement />

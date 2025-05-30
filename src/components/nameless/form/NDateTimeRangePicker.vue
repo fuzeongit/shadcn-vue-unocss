@@ -41,6 +41,7 @@ const emit = defineEmits<{
 // v-model binding (deep = true)
 const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue,
+  passive: true,
   deep: true
 }) as Ref<(number | undefined)[]>;
 
@@ -174,14 +175,11 @@ const open = ref(false);
         <div v-else class="truncate text-muted-foreground flex-1">
           {{ placeholder }}
         </div>
-        <button
-          v-if="clearable && modelValue.length"
-          tabindex="-1"
-          class="items-center px-1 hidden group-hover/input_border:flex"
-          @click.prevent.stop="emit('update:modelValue', [])"
-        >
-          <IconMdiClearCircle class="h-4 w-4 opacity-50 text-muted-foreground" />
-        </button>
+        <NClearButton
+          v-if="clearable"
+          :visible="Boolean(modelValue?.length) && !disabled"
+          @click="emit('update:modelValue', [])"
+        ></NClearButton>
         <slot name="suffix" />
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0" />
       </NInputBorder>
