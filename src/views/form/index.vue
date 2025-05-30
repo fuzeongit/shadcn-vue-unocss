@@ -86,17 +86,17 @@ const test = async () => {
   // validateField('str');
   controlledValues.value.str = 'str1';
 };
+
+const range = ref([]);
+const date = ref();
+console.log();
 </script>
 
 <template>
   <div>
-    <NInput :default-value="456" placeholder="str" clearable></NInput>
-    <NCommand
-      :options="[
-        { label: '123', value: '987' },
-        { label: '123', value: '987' }
-      ]"
-    ></NCommand>
+    <NDateTimeRangePicker v-model="range" clearable></NDateTimeRangePicker>
+    <NDateTimePicker v-model="date" clearable></NDateTimePicker>
+    <br />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button variant="outline">
@@ -170,6 +170,7 @@ const test = async () => {
             <NNumberInput
               :model-value="field.value"
               placeholder="num"
+              :min="90"
               clearable
               @update:model-value="field['onUpdate:modelValue']"
             >

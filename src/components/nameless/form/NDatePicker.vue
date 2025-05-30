@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { useI18nInject } from '../common/i18n.inject';
 import NInputBorder from './NInputBorder.vue';
+import { $t } from '@/locales';
 
 defineComponent({
   name: 'NDatePicker'
@@ -25,7 +26,7 @@ const props = withDefaults(
     defaultValue: undefined,
     modelValue: undefined,
     class: undefined,
-    placeholder: undefined,
+    placeholder: $t('nameless.form.datePicker.placeholder'),
     clearable: false,
     disabled: false
   }

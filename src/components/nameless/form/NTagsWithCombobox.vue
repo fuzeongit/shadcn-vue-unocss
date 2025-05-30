@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'vue';
 import { unionBy } from 'lodash-es';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
 defineComponent({
   name: 'NTagsWithCombobox'
@@ -35,7 +36,7 @@ const props = withDefaults(
     modelValue: undefined,
     class: undefined,
     remote: false,
-    placeholder: undefined,
+    placeholder: $t('nameless.form.tagsWithCombobox.placeholder'),
     clearable: false,
     disabled: false
   }

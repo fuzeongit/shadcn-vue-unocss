@@ -1,9 +1,45 @@
 {
   "nameless": {
-    "empty": "无数据",
-    "input": {
+    "command": {
       "placeholder": "请输入",
-      "search": "搜索"
+      "empty": "无数据"
+    },
+    "remoteCommand": {
+      "empty": "无数据"
+    },
+    "form": {
+      "datePicker": {
+        "placeholder": "请选择"
+      },
+      "dateRangePicker": {
+        "placeholder": "请选择",
+        "hour": "时",
+        "minute": "分",
+        "second": "秒"
+      },
+      "dateTimePicker": {
+        "placeholder": "请选择"
+      },
+      "dateTimeRangePicker": {
+        "placeholder": "请选择",
+        "startTime": "开始时间",
+        "endTime": "结束时间",
+        "hour": "时",
+        "minute": "分",
+        "second": "秒"
+      },
+      "input": {
+        "placeholder": "请输入"
+      },
+      "numberInput": {
+        "placeholder": "请输入"
+      },
+      "select": {
+        "placeholder": "请输入"
+      },
+      "tagsWithCombobox": {
+        "placeholder": "请选择"
+      }
     }
   }
 }

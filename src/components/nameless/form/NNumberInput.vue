@@ -2,15 +2,23 @@
 import { type HTMLAttributes } from 'vue';
 import type { NumberFieldRootEmits, NumberFieldRootProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
+import { $t } from '@/locales';
 
-const props = defineProps<
-  NumberFieldRootProps & {
-    // eslint-disable-next-line vue/no-reserved-props
-    class?: HTMLAttributes['class'];
-    placeholder?: string;
-    clearable?: boolean;
+const props = withDefaults(
+  defineProps<
+    NumberFieldRootProps & {
+      // eslint-disable-next-line vue/no-reserved-props
+      class?: HTMLAttributes['class'];
+      placeholder?: string;
+      clearable?: boolean;
+    }
+  >(),
+  {
+    class: undefined,
+    placeholder: $t('nameless.form.numberInput.placeholder'),
+    clearable: false
   }
->();
+);
 const emit = defineEmits<NumberFieldRootEmits>();
 
 defineComponent({

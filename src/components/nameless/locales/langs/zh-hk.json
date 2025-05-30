@@ -1,9 +1,21 @@
 {
   "nameless": {
-    "empty": "沒有數據",
-    "input": {
-      "placeholder": "請輸入",
-      "search": "搜索"
+    "command": {
+      "placeholder": "请输入",
+      "empty": "無數據"
+    },
+    "remoteCommand": {
+      "empty": "無數據"
+    },
+    "form": {
+      "dateTimeRangePicker": {
+        "placeholder": "請選擇",
+        "startTime": "開始時間",
+        "endTime": "結束時間",
+        "hour": "時",
+        "minute": "分",
+        "second": "秒"
+      }
     }
   }
 }

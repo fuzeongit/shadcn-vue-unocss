@@ -4,7 +4,7 @@
     ".temp": true,
     "temp": true,
     "dist": true,
-    // "build": true,
+    "build": true,
     "public": true,
     "packages": true,
     "ssl": true,
@@ -22,7 +22,7 @@
     "preserve.html": true,
     "components.json": true,
     "tsconfig.json": true,
-    // "uno.config.ts": true,
+    "uno.config.ts": true,
     "vite.config.ts": true,
     "stats.html": true
   },

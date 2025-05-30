@@ -6,6 +6,7 @@ import type { DateRange } from 'reka-ui';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
+import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
 
 const props = withDefaults(
@@ -22,7 +23,7 @@ const props = withDefaults(
     defaultValue: () => [],
     modelValue: undefined,
     class: undefined,
-    placeholder: undefined,
+    placeholder: $t('nameless.form.dateRangePicker.placeholder'),
     clearable: false,
     disabled: false
   }

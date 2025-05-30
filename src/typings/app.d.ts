@@ -8,7 +8,8 @@ declare namespace App {
   namespace I18n {
     type LangType = 'en-US' | 'zh-CN' | 'zh-HK';
 
-    type Schema = typeof import('../locales/langs/zh-cn.json') & typeof import('../locales/langs/en-us.json');
+    type Schema = typeof import('../locales/langs/zh-cn.json') &
+      typeof import('../components/nameless/locales/langs/zh-cn.json');
 
     type GetI18nKey<T extends Record<string, unknown>, K extends keyof T = keyof T> = K extends string
       ? T[K] extends Record<string, unknown>

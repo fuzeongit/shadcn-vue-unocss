@@ -3,6 +3,7 @@ import { type HTMLAttributes } from 'vue';
 import { unionBy } from 'lodash-es';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
 
 defineComponent({
@@ -35,7 +36,7 @@ const props = withDefaults(
     defaultValue: undefined,
     modelValue: undefined,
     class: undefined,
-    placeholder: undefined,
+    placeholder: $t('nameless.form.select.placeholder'),
     remote: false,
     disabled: false
   }

@@ -1,9 +1,21 @@
 {
   "nameless": {
-    "empty": "Empty",
-    "input": {
+    "command": {
       "placeholder": "Please enter",
-      "search": "Search"
+      "empty": "No data"
+    },
+    "remoteCommand": {
+      "empty": "No data"
+    },
+    "form": {
+      "dateTimeRangePicker": {
+        "placeholder": "Please select",
+        "startTime": "Start time",
+        "endTime": "End time",
+        "hour": "Hour",
+        "minute": "Minute",
+        "second": "Second"
+      }
     }
   }
 }
