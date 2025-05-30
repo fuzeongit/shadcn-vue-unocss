@@ -17,10 +17,10 @@
         "minute": "分",
         "second": "秒"
       },
-      "dateTimePicker": {
+      "datetimePicker": {
         "placeholder": "请选择"
       },
-      "dateTimeRangePicker": {
+      "datetimeRangePicker": {
         "placeholder": "请选择",
         "startTime": "开始时间",
         "endTime": "结束时间",

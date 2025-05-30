@@ -24,6 +24,7 @@ export function setupElegantRouter() {
         'document_alova'
       ]
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     routePathTransformer(routeName, routePath) {
       return routePath;
     },

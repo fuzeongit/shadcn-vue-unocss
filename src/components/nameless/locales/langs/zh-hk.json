@@ -8,7 +8,7 @@
       "empty": "無數據"
     },
     "form": {
-      "dateTimeRangePicker": {
+      "datetimeRangePicker": {
         "placeholder": "請選擇",
         "startTime": "開始時間",
         "endTime": "結束時間",

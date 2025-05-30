@@ -8,7 +8,7 @@
       "empty": "No data"
     },
     "form": {
-      "dateTimeRangePicker": {
+      "datetimeRangePicker": {
         "placeholder": "Please select",
         "startTime": "Start time",
         "endTime": "End time",

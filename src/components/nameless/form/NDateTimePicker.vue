@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
 import NInputBorder from './NInputBorder.vue';
-import { extractDateTime } from '.';
+import { extractDatetime } from '.';
 
 defineComponent({
   name: 'NDatePicker'
@@ -27,7 +27,7 @@ const props = withDefaults(
     defaultValue: undefined,
     modelValue: undefined,
     class: undefined,
-    placeholder: $t('nameless.form.dateTimePicker.placeholder'),
+    placeholder: $t('nameless.form.datetimePicker.placeholder'),
     clearable: false,
     disabled: false
   }
@@ -59,13 +59,13 @@ const open = ref(false);
 
 const localValue = computed<{
   calendar: CalendarDate | undefined;
-  time: ReturnType<typeof extractDateTime>;
+  time: ReturnType<typeof extractDatetime>;
 }>({
   get() {
     const date = modelValue.value ? dayjs(modelValue.value) : undefined;
     return {
       calendar: date ? new CalendarDate(date.year(), date.month() + 1, date.date()) : undefined,
-      time: extractDateTime(modelValue.value)
+      time: extractDatetime(modelValue.value)
     };
   },
   set({ calendar, time }) {
@@ -152,7 +152,7 @@ const second = computed<number>({
                 type="number"
                 min="0"
                 max="23"
-                :placeholder="$t('nameless.form.dateTimePicker.hour')"
+                :placeholder="$t('nameless.form.datetimePicker.hour')"
                 class="h-8"
               />
               <Input
@@ -160,7 +160,7 @@ const second = computed<number>({
                 type="number"
                 min="0"
                 max="59"
-                :placeholder="$t('nameless.form.dateTimePicker.minute')"
+                :placeholder="$t('nameless.form.datetimePicker.minute')"
                 class="h-8"
               />
               <Input
@@ -168,7 +168,7 @@ const second = computed<number>({
                 type="number"
                 min="0"
                 max="59"
-                :placeholder="$t('nameless.form.dateTimePicker.second')"
+                :placeholder="$t('nameless.form.datetimePicker.second')"
                 class="h-8"
               />
             </div>

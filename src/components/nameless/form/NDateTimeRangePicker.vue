@@ -6,13 +6,13 @@ import dayjs from 'dayjs';
 import { eq } from 'lodash-es';
 import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import type { DateRange } from 'reka-ui';
+import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
 import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
-import { extractDateTime } from '.';
+import { extractDatetime } from '.';
 
 const props = withDefaults(
   defineProps<{
@@ -28,7 +28,7 @@ const props = withDefaults(
     defaultValue: () => [],
     modelValue: undefined,
     class: undefined,
-    placeholder: $t('nameless.form.dateTimeRangePicker.placeholder'),
+    placeholder: $t('nameless.form.datetimeRangePicker.placeholder'),
     clearable: false,
     disabled: false
   }
@@ -56,12 +56,11 @@ const df = computed(
     })
 );
 
-
 // single computed to map between modelValue[] and calendar + times
 const localValue = computed<{
   dateRange: DateRange;
-  startTime: ReturnType<typeof extractDateTime>;
-  endTime: ReturnType<typeof extractDateTime>;
+  startTime: ReturnType<typeof extractDatetime>;
+  endTime: ReturnType<typeof extractDatetime>;
 }>({
   get() {
     const [t0, t1] = modelValue.value;
@@ -72,8 +71,8 @@ const localValue = computed<{
         start: startDay ? new CalendarDate(startDay.year(), startDay.month() + 1, startDay.date()) : undefined,
         end: endDay ? new CalendarDate(endDay.year(), endDay.month() + 1, endDay.date()) : undefined
       },
-      startTime: extractDateTime(t0),
-      endTime: extractDateTime(t1, true)
+      startTime: extractDatetime(t0),
+      endTime: extractDatetime(t1, true)
     };
   },
   set({ dateRange: { start, end }, startTime, endTime }) {
@@ -193,14 +192,14 @@ const open = ref(false);
       <div class="p-3 border-t space-y-4">
         <div class="flex flex-col gap-y-4 sm:flex-row sm:gap-x-4 sm:gap-y-0">
           <div>
-            <p class="mb-1 text-sm font-medium">{{ $t('nameless.form.dateTimeRangePicker.startTime') }}</p>
+            <p class="mb-1 text-sm font-medium">{{ $t('nameless.form.datetimeRangePicker.startTime') }}</p>
             <div class="flex gap-2">
               <Input
                 v-model="startHour"
                 type="number"
                 min="0"
                 max="23"
-                :placeholder="$t('nameless.form.dateTimeRangePicker.hour')"
+                :placeholder="$t('nameless.form.datetimeRangePicker.hour')"
                 class="h-8"
               />
               <Input
@@ -208,7 +207,7 @@ const open = ref(false);
                 type="number"
                 min="0"
                 max="59"
-                :placeholder="$t('nameless.form.dateTimeRangePicker.minute')"
+                :placeholder="$t('nameless.form.datetimeRangePicker.minute')"
                 class="h-8"
               />
               <Input
@@ -216,20 +215,20 @@ const open = ref(false);
                 type="number"
                 min="0"
                 max="59"
-                :placeholder="$t('nameless.form.dateTimeRangePicker.second')"
+                :placeholder="$t('nameless.form.datetimeRangePicker.second')"
                 class="h-8"
               />
             </div>
           </div>
           <div>
-            <p class="mb-1 text-sm font-medium">{{ $t('nameless.form.dateTimeRangePicker.endTime') }}</p>
+            <p class="mb-1 text-sm font-medium">{{ $t('nameless.form.datetimeRangePicker.endTime') }}</p>
             <div class="flex gap-2">
               <Input
                 v-model="endHour"
                 type="number"
                 min="0"
                 max="23"
-                :placeholder="$t('nameless.form.dateTimeRangePicker.hour')"
+                :placeholder="$t('nameless.form.datetimeRangePicker.hour')"
                 class="h-8"
               />
               <Input
@@ -237,7 +236,7 @@ const open = ref(false);
                 type="number"
                 min="0"
                 max="59"
-                :placeholder="$t('nameless.form.dateTimeRangePicker.minute')"
+                :placeholder="$t('nameless.form.datetimeRangePicker.minute')"
                 class="h-8"
               />
               <Input
@@ -245,7 +244,7 @@ const open = ref(false);
                 type="number"
                 min="0"
                 max="59"
-                :placeholder="$t('nameless.form.dateTimeRangePicker.second')"
+                :placeholder="$t('nameless.form.datetimeRangePicker.second')"
                 class="h-8"
               />
             </div>

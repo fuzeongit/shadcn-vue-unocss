@@ -22,7 +22,9 @@ class Dto {
   public remSel = 'nuxt';
   public remMulSel = ['next.js', 'sveltekit', 'nuxt'];
   public date = Date.now();
+  public datetime = Date.now();
   public dateRange = [];
+  public datetimeRange = [];
   public str2 = '2';
 }
 
@@ -35,7 +37,12 @@ const formSchema = toTypedSchema(
     remSel: z.string(),
     remMulSel: z.array(z.string()).min(3),
     date: z.number().int().positive(),
+    datetime: z.number().int().positive().max(new Date('2024-12-20').getTime()),
     dateRange: z.union([
+      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2024-12-20').getTime())]),
+      z.array(z.number().int().positive()).max(0)
+    ]),
+    datetimeRange: z.union([
       z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2024-12-20').getTime())]),
       z.array(z.number().int().positive()).max(0)
     ])
@@ -86,16 +93,10 @@ const test = async () => {
   // validateField('str');
   controlledValues.value.str = 'str1';
 };
-
-const range = ref([]);
-const date = ref();
-console.log();
 </script>
 
 <template>
   <div>
-    <NDateTimeRangePicker v-model="range" clearable></NDateTimeRangePicker>
-    <NDateTimePicker v-model="date" clearable></NDateTimePicker>
     <br />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
@@ -115,11 +116,11 @@ console.log();
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button variant="outline">
-          <Icon
+          <SvgIcon
             icon="radix-icons:moon"
             class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
           />
-          <Icon
+          <SvgIcon
             icon="radix-icons:sun"
             class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
           />
@@ -281,6 +282,39 @@ console.log();
               clearable
               @update:model-value="field['onUpdate:modelValue']"
             ></NDateRangePicker>
+          </FormControl>
+          <FormDescription>This is your public display name.</FormDescription>
+          <FormMessage />
+        </FormItem>
+      </FormField>
+
+      <FormField v-slot="{ field }" name="datetime" :validate-on-input="false">
+        {{ field.value }}
+        <FormItem v-auto-animate>
+          <FormLabel>Datetime</FormLabel>
+          <FormControl>
+            <NDatetimePicker
+              placeholder="datetime"
+              :model-value="field.value"
+              clearable
+              @update:model-value="field['onUpdate:modelValue']"
+            ></NDatetimePicker>
+          </FormControl>
+          <FormDescription>This is your public display name.</FormDescription>
+          <FormMessage />
+        </FormItem>
+      </FormField>
+
+      <FormField v-slot="{ field }" name="datetimeRange" :validate-on-input="false">
+        <FormItem v-auto-animate>
+          <FormLabel>DatetimeRange</FormLabel>
+          <FormControl>
+            <NDatetimeRangePicker
+              placeholder="datetimeRange"
+              :model-value="field.value"
+              clearable
+              @update:model-value="field['onUpdate:modelValue']"
+            ></NDatetimeRangePicker>
           </FormControl>
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
