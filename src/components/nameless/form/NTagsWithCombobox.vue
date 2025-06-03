@@ -5,9 +5,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
-defineComponent({
-  name: 'NTagsWithCombobox'
-});
+
+interface Props {
+  defaultValue?: T[];
+  modelValue?: T[];
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
+  clearable?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+}
 
 type Remote = {
   remote?: true;
@@ -19,28 +26,19 @@ type Local = {
   options: Nameless.MaybePromise<Nameless.Form.SelectOption<T>[]>;
 };
 
-const props = withDefaults(
-  defineProps<
-    {
-      defaultValue?: T[];
-      modelValue?: T[];
-      // eslint-disable-next-line vue/no-reserved-props
-      class?: HTMLAttributes['class'];
-      clearable?: boolean;
-      placeholder?: string;
-      disabled?: boolean;
-    } & (Remote | Local)
-  >(),
-  {
-    defaultValue: () => [],
-    modelValue: undefined,
-    class: undefined,
-    remote: false,
-    placeholder: $t('nameless.form.tagsWithCombobox.placeholder'),
-    clearable: false,
-    disabled: false
-  }
-);
+defineComponent({
+  name: 'NTagsWithCombobox'
+});
+
+const props = withDefaults(defineProps<Props & (Remote | Local)>(), {
+  defaultValue: () => [],
+  modelValue: undefined,
+  class: undefined,
+  remote: false,
+  placeholder: $t('nameless.form.tagsWithCombobox.placeholder'),
+  clearable: false,
+  disabled: false
+});
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: T[]): void;

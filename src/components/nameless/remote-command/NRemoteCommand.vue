@@ -5,11 +5,7 @@ import { Search } from 'lucide-vue-next';
 import { ListboxContent, ListboxFilter, ListboxGroup, ListboxItem, ListboxRoot, Primitive } from 'reka-ui';
 import { cn } from '@/lib/utils';
 
-defineComponent({
-  name: 'NRemoteCommand'
-});
-
-const props = defineProps<{
+interface Props {
   defaultValue?: T;
   modelValue?: T;
   options: Nameless.Form.SelectOption<Nameless.Form.SelectValue>[];
@@ -18,7 +14,13 @@ const props = defineProps<{
   multiple?: boolean;
   // eslint-disable-next-line vue/no-reserved-props
   class?: HTMLAttributes['class'];
-}>();
+}
+
+defineComponent({
+  name: 'NRemoteCommand'
+});
+
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: T): void;

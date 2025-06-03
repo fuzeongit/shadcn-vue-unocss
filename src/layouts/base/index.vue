@@ -285,10 +285,10 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
                   size="lg"
                   class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                 >
-                  <AvatarRoot class="h-8 w-8 rounded-lg">
+                  <Avatar class="h-8 w-8 rounded-lg">
                     <AvatarImage :src="data.user.avatar" :alt="data.user.name" />
                     <AvatarFallback class="rounded-lg">CN</AvatarFallback>
-                  </AvatarRoot>
+                  </Avatar>
                   <div class="grid flex-1 text-left text-sm leading-tight">
                     <span class="truncate font-semibold">{{ data.user.name }}</span>
                     <span class="truncate text-xs">{{ data.user.email }}</span>
@@ -304,10 +304,10 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
               >
                 <DropdownMenuLabel class="p-0 font-normal">
                   <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <AvatarRoot class="h-8 w-8 rounded-lg">
+                    <Avatar class="h-8 w-8 rounded-lg">
                       <AvatarImage :src="data.user.avatar" :alt="data.user.name" />
                       <AvatarFallback class="rounded-lg">CN</AvatarFallback>
-                    </AvatarRoot>
+                    </Avatar>
                     <div class="grid flex-1 text-left text-sm leading-tight">
                       <span class="truncate font-semibold">{{ data.user.name }}</span>
                       <span class="truncate text-xs">{{ data.user.email }}</span>

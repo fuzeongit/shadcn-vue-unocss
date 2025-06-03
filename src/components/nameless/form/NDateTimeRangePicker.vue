@@ -14,25 +14,24 @@ import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
 import { extractDatetime } from '.';
 
-const props = withDefaults(
-  defineProps<{
-    defaultValue?: (number | undefined)[];
-    modelValue?: (number | undefined)[];
-    // eslint-disable-next-line vue/no-reserved-props
-    class?: HTMLAttributes['class'];
-    placeholder?: string;
-    clearable?: boolean;
-    disabled?: boolean;
-  }>(),
-  {
-    defaultValue: () => [],
-    modelValue: undefined,
-    class: undefined,
-    placeholder: $t('nameless.form.datetimeRangePicker.placeholder'),
-    clearable: false,
-    disabled: false
-  }
-);
+interface Props {
+  defaultValue?: (number | undefined)[];
+  modelValue?: (number | undefined)[];
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
+  placeholder?: string;
+  clearable?: boolean;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  defaultValue: () => [],
+  modelValue: undefined,
+  class: undefined,
+  placeholder: $t('nameless.form.datetimeRangePicker.placeholder'),
+  clearable: false,
+  disabled: false
+});
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: (number | undefined)[]): void;

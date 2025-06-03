@@ -7,6 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('./../components/ui/avatar/Avatar.vue')['default']
+    AvatarFallback: typeof import('./../components/ui/avatar/AvatarFallback.vue')['default']
+    AvatarImage: typeof import('./../components/ui/avatar/AvatarImage.vue')['default']
     BetterScroll: typeof import('./../components/custom/better-scroll/BetterScroll.vue')['default']
     Button: typeof import('./../components/ui/button/Button.vue')['default']
     Calendar: typeof import('./../components/ui/calendar/Calendar.vue')['default']
@@ -110,6 +113,14 @@ declare module 'vue' {
     NumberFieldDecrement: typeof import('./../components/ui/number-field/NumberFieldDecrement.vue')['default']
     NumberFieldIncrement: typeof import('./../components/ui/number-field/NumberFieldIncrement.vue')['default']
     NumberFieldInput: typeof import('./../components/ui/number-field/NumberFieldInput.vue')['default']
+    Pagination: typeof import('./../components/ui/pagination/Pagination.vue')['default']
+    PaginationContent: typeof import('./../components/ui/pagination/PaginationContent.vue')['default']
+    PaginationEllipsis: typeof import('./../components/ui/pagination/PaginationEllipsis.vue')['default']
+    PaginationFirst: typeof import('./../components/ui/pagination/PaginationFirst.vue')['default']
+    PaginationItem: typeof import('./../components/ui/pagination/PaginationItem.vue')['default']
+    PaginationLast: typeof import('./../components/ui/pagination/PaginationLast.vue')['default']
+    PaginationNext: typeof import('./../components/ui/pagination/PaginationNext.vue')['default']
+    PaginationPrevious: typeof import('./../components/ui/pagination/PaginationPrevious.vue')['default']
     Popover: typeof import('./../components/ui/popover/Popover.vue')['default']
     PopoverContent: typeof import('./../components/ui/popover/PopoverContent.vue')['default']
     PopoverTrigger: typeof import('./../components/ui/popover/PopoverTrigger.vue')['default']

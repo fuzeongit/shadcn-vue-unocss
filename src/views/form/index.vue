@@ -98,7 +98,8 @@ const t = ref('12');
 
 <template>
   <div>
-    <NInput v-model:model-value="t" placeholder="str"></NInput>
+    {{ t }}
+    <NInput v-model="t" placeholder="str"></NInput>
     <br />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>

@@ -2,16 +2,20 @@
 import type { HTMLAttributes } from 'vue';
 import { Primitive, type PrimitiveProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
-interface Props extends PrimitiveProps, /* @vue-ignore */ HTMLAttributes {
+
+interface Props extends PrimitiveProps {
   visible: boolean;
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
 }
 
 defineComponent({
-  name: 'NInputBorder'
+  name: 'NClearButton'
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  as: 'button'
+  as: 'button',
+  class: undefined
 });
 </script>
 

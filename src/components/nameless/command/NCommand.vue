@@ -2,17 +2,20 @@
 import { Icon } from '@iconify/vue';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
+
+type UnwrapArray<T> = T extends (infer U)[] ? U : T;
+
+interface Props {
+  options: Nameless.Form.SelectOption<UnwrapArray<T>>[];
+  defaultValue?: T;
+  modelValue?: T;
+}
+
 defineComponent({
   name: 'NCommand'
 });
 
-type UnwrapArray<T> = T extends (infer U)[] ? U : T;
-
-const props = defineProps<{
-  options: Nameless.Form.SelectOption<UnwrapArray<T>>[];
-  defaultValue?: T;
-  modelValue?: T;
-}>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: T): void;

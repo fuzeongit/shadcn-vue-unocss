@@ -4,14 +4,18 @@ import { Primitive, type PrimitiveProps } from 'reka-ui';
 import { FieldContextKey, useFieldError } from 'vee-validate';
 import { cn } from '@/lib/utils';
 
-interface Props extends PrimitiveProps, /* @vue-ignore */ HTMLAttributes {}
+interface Props extends PrimitiveProps {
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
+}
 
 defineComponent({
   name: 'NInputBorder'
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  as: 'button'
+  as: 'button',
+  class: undefined
 });
 
 const fieldContext = inject(FieldContextKey);

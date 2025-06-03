@@ -9,29 +9,28 @@ import { useI18nInject } from '../common/i18n.inject';
 import NInputBorder from './NInputBorder.vue';
 import { extractDatetime } from '.';
 
+interface Props {
+  defaultValue?: number;
+  modelValue?: number;
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
+  placeholder?: string;
+  clearable?: boolean;
+  disabled?: boolean;
+}
+
 defineComponent({
   name: 'NDatePicker'
 });
 
-const props = withDefaults(
-  defineProps<{
-    defaultValue?: number;
-    modelValue?: number;
-    // eslint-disable-next-line vue/no-reserved-props
-    class?: HTMLAttributes['class'];
-    placeholder?: string;
-    clearable?: boolean;
-    disabled?: boolean;
-  }>(),
-  {
-    defaultValue: undefined,
-    modelValue: undefined,
-    class: undefined,
-    placeholder: $t('nameless.form.datetimePicker.placeholder'),
-    clearable: false,
-    disabled: false
-  }
-);
+const props = withDefaults(defineProps<Props>(), {
+  defaultValue: undefined,
+  modelValue: undefined,
+  class: undefined,
+  placeholder: $t('nameless.form.datetimePicker.placeholder'),
+  clearable: false,
+  disabled: false
+});
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: number): void;

@@ -6,9 +6,15 @@ import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
 
-defineComponent({
-  name: 'NSelect'
-});
+interface Props {
+  defaultValue?: T;
+  modelValue?: T;
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
+  placeholder?: string;
+  clearable?: boolean;
+  disabled?: boolean;
+}
 
 type Remote = {
   remote?: true;
@@ -20,27 +26,18 @@ type Local = {
   options: Nameless.MaybePromise<Nameless.Form.SelectOption<T>[]>;
 };
 
-const props = withDefaults(
-  defineProps<
-    {
-      defaultValue?: T;
-      modelValue?: T;
-      // eslint-disable-next-line vue/no-reserved-props
-      class?: HTMLAttributes['class'];
-      placeholder?: string;
-      clearable?: boolean;
-      disabled?: boolean;
-    } & (Remote | Local)
-  >(),
-  {
-    defaultValue: undefined,
-    modelValue: undefined,
-    class: undefined,
-    placeholder: $t('nameless.form.select.placeholder'),
-    remote: false,
-    disabled: false
-  }
-);
+defineComponent({
+  name: 'NSelect'
+});
+
+const props = withDefaults(defineProps<Props & (Remote | Local)>(), {
+  defaultValue: undefined,
+  modelValue: undefined,
+  class: undefined,
+  placeholder: $t('nameless.form.select.placeholder'),
+  remote: false,
+  disabled: false
+});
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: T): void;

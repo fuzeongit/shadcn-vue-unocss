@@ -1,14 +1,6 @@
 <script setup lang="tsx">
 import { FlexRender, createColumnHelper } from '@tanstack/vue-table';
 import { Icon } from '@iconify/vue';
-import {
-  PaginationEllipsis,
-  PaginationList,
-  PaginationListItem,
-  PaginationNext,
-  PaginationPrev,
-  PaginationRoot
-} from 'reka-ui';
 import { SelectOptions } from '@/constants/dictionary/select-options';
 import { fetchMock2 } from '@/services';
 import { userApi } from '@/services/apis/user';
@@ -101,13 +93,17 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
       size: 80,
       cell: ({ row }) => {
         return (
-          <Button
-            onClick={() => {
-              row.toggleExpanded();
-            }}
-          >
-            测试
-          </Button>
+          <>
+            <Button as-child>
+              <button
+                onClick={() => {
+                  row.toggleExpanded();
+                }}
+              >
+                测试
+              </button>
+            </Button>
+          </>
         );
       }
     })
@@ -318,7 +314,7 @@ const change = () => {
       </Table>
     </div>
     <div class="flex justify-end items-center gap-1 mt-4">
-      <PaginationRoot
+      <Pagination
         v-slot="{ page }"
         :total="table.getRowCount()"
         :page="table.getState().pagination.pageIndex"
@@ -327,30 +323,27 @@ const change = () => {
         :items-per-page="table.getState().pagination.pageSize"
         @update:page="table.setPageIndex($event)"
       >
-        <PaginationList v-slot="{ items }" class="flex items-center gap-1">
-          <PaginationPrev>
-            <Button class="p-0 !w-7 !h-7" variant="outline" size="icon">
-              <Icon icon="radix-icons:chevron-left" class="h-4 w-4"></Icon>
-            </Button>
-          </PaginationPrev>
+        <PaginationContent v-slot="{ items }">
+          <PaginationPrevious />
+
           <template v-for="(item, index) in items">
-            <PaginationListItem v-if="item.type === 'page'" :key="index" :value="item.value" as-child>
-              <Button :variant="item.value === page ? 'outline' : 'link'" size="xs">
-                {{ item.value }}
-              </Button>
-            </PaginationListItem>
-            <PaginationEllipsis v-else :key="item.type" :index="index" />
+            <PaginationItem
+              v-if="item.type === 'page'"
+              :key="index"
+              :value="item.value"
+              :is-active="item.value === page"
+            >
+              {{ item.value }}
+            </PaginationItem>
+            <PaginationEllipsis v-else :key="`${index}_ellipsis`" />
           </template>
-          <PaginationNext>
-            <Button class="p-0 !w-7 !h-7" variant="outline" size="icon">
-              <Icon icon="radix-icons:chevron-right" class="h-4 w-4"></Icon>
-            </Button>
-          </PaginationNext>
-        </PaginationList>
-      </PaginationRoot>
+
+          <PaginationNext />
+        </PaginationContent>
+      </Pagination>
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
-          <Button variant="outline" size="xs">
+          <Button variant="outline">
             {{ table.getState().pagination.pageSize }}
             <Icon icon="radix-icons:chevron-down" class="ml-2 h-4 w-4"></Icon>
           </Button>

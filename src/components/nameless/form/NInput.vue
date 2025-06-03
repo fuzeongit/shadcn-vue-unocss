@@ -4,30 +4,34 @@ import { omit } from 'lodash-es';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 
-const props = withDefaults(
-  defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
-    defaultValue?: string | number;
-    modelValue?: string | number;
-    // eslint-disable-next-line vue/no-reserved-props
-    class?: HTMLAttributes['class'];
-    clearable?: boolean;
-    placeholder?: string;
-    disabled?: boolean;
-  }>(),
-  {
-    defaultValue: undefined,
-    modelValue: undefined,
-    class: undefined,
-    placeholder: $t('nameless.form.input.placeholder'),
-    clearable: false,
-    disabled: false
-  }
-);
+interface Props {
+  defaultValue?: string | number;
+  modelValue?: string | number;
+  // eslint-disable-next-line vue/no-reserved-props
+  class?: HTMLAttributes['class'];
+  clearable?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  defaultValue: undefined,
+  modelValue: undefined,
+  class: undefined,
+  placeholder: $t('nameless.form.input.placeholder'),
+  clearable: false,
+  disabled: false
+});
 
 const emit = defineEmits<{
   (e: 'update:modelValue', payload?: string | number): void;
 }>();
+
+const modelValue = useVModel(props, 'modelValue', emit, {
+  defaultValue: props.defaultValue,
+  passive: true,
+  deep: true
+});
 </script>
 
 <template>
@@ -38,7 +42,7 @@ const emit = defineEmits<{
       data-slot="input"
       :placeholder="placeholder"
       :disabled="disabled"
-      @update:model-value="emit('update:modelValue', $event)"
+      @update:model-value="modelValue = $event"
     />
 
     <NClearButton
