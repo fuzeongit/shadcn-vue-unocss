@@ -93,10 +93,12 @@ const test = async () => {
   // validateField('str');
   controlledValues.value.str = 'str1';
 };
+const t = ref('12');
 </script>
 
 <template>
   <div>
+    <NInput v-model:model-value="t" placeholder="str"></NInput>
     <br />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
@@ -149,6 +151,7 @@ const test = async () => {
               :model-value="field.value"
               placeholder="str"
               clearable
+              disabled
               @update:model-value="field['onUpdate:modelValue']"
             >
               <template #suffix>

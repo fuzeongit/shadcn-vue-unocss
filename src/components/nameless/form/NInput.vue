@@ -49,9 +49,3 @@ const emit = defineEmits<{
     <slot name="suffix" />
   </NInputBorder>
 </template>
-
-<style lang="css" scoped>
-.parent:has(input:focus-visible) {
-  color: red;
-}
-</style>
