@@ -72,10 +72,11 @@ const localValue = computed<CalendarDate | undefined>({
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
-        role="picker"
+        role="combobox"
         :aria-expanded="open"
         :disabled="disabled"
         :class="cn('group/input_border', props.class)"
+        v-bind="$attrs"
       >
         <template v-if="modelValue">
           <div class="flex-1 truncate">

@@ -114,6 +114,7 @@ watch(
         :aria-expanded="open"
         :disabled="disabled"
         :class="cn('group/input_border', props.class)"
+        v-bind="$attrs"
       >
         <div v-if="modelValue?.length" class="w-full overflow-hidden">
           <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: true }">

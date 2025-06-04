@@ -155,25 +155,28 @@ const endSecond = computed<number>({
 });
 
 const open = ref(false);
+
+const displayValue = computed(() =>
+  modelValue.value.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
+);
 </script>
 
 <template>
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
-        role="picker"
+        role="combobox"
         :aria-expanded="open"
         :disabled="disabled"
         :class="cn('group/input_border', props.class)"
+        v-bind="$attrs"
       >
-        <div v-if="modelValue[0] != null && modelValue[1] != null" class="flex-1 truncate">
-          {{ df.format(new Date(modelValue[0]!)) }}
-          –
-          {{ df.format(new Date(modelValue[1]!)) }}
-        </div>
-        <div v-else class="truncate text-muted-foreground flex-1">
-          {{ placeholder }}
-        </div>
+        <template v-if="displayValue">
+          <div class="flex-1 truncate">
+            {{ displayValue }}
+          </div>
+        </template>
+        <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <NClearButton
           v-if="clearable"
           :visible="Boolean(modelValue?.length) && !disabled"
@@ -183,7 +186,6 @@ const open = ref(false);
         <IconRadixIconsChevronDown class="w-4 h-4 opacity-50 shrink-0" />
       </NInputBorder>
     </PopoverTrigger>
-
     <PopoverContent class="w-auto p-0">
       <RangeCalendar v-model="dateRange" initial-focus :number-of-months="2" :locale="locale" />
       <div class="p-3 border-t space-y-4">

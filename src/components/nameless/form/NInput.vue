@@ -35,10 +35,10 @@ const modelValue = useVModel(props, 'modelValue', emit, {
 </script>
 
 <template>
-  <NInputBorder as="div" role="input" :disabled="disabled" :class="cn('group/input_border', props.class)">
+  <NInputBorder as="div" role="textbox" :disabled="disabled" :class="cn('group/input_border', props.class)">
     <Input
       v-bind="omit(props, ['clearable', 'class'])"
-      class="border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto peer"
+      class="border-none shadow-none focus-visible:ring-0 px-0 py-0 h-auto"
       data-slot="input"
       :placeholder="placeholder"
       :disabled="disabled"

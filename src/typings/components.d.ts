@@ -105,6 +105,7 @@ declare module 'vue' {
     NInput: typeof import('./../components/nameless/form/NInput.vue')['default']
     NInputBorder: typeof import('./../components/nameless/form/NInputBorder.vue')['default']
     NNumberInput: typeof import('./../components/nameless/form/NNumberInput.vue')['default']
+    NPopover: typeof import('./../components/nameless/popover/NPopover.vue')['default']
     NRemoteCommand: typeof import('./../components/nameless/remote-command/NRemoteCommand.vue')['default']
     NSelect: typeof import('./../components/nameless/form/NSelect.vue')['default']
     NTagsWithCombobox: typeof import('./../components/nameless/form/NTagsWithCombobox.vue')['default']

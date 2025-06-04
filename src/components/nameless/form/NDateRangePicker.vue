@@ -64,6 +64,10 @@ const localValue = computed<DateRange>({
 });
 
 const open = ref(false);
+
+const displayValue = computed(() =>
+  modelValue.value.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
+);
 </script>
 
 <template>
@@ -74,17 +78,13 @@ const open = ref(false);
         :aria-expanded="open"
         :disabled="disabled"
         :class="cn('group/input_border', props.class)"
+        v-bind="$attrs"
       >
-        <div v-if="localValue.start" class="flex-1 truncate">
-          <template v-if="localValue.end">
-            {{ df.format(localValue.start.toDate(getLocalTimeZone())) }} -
-            {{ df.format(localValue.end.toDate(getLocalTimeZone())) }}
-          </template>
-
-          <template v-else>
-            {{ df.format(localValue.start.toDate(getLocalTimeZone())) }}
-          </template>
-        </div>
+        <template v-if="displayValue">
+          <div class="flex-1 truncate">
+            {{ displayValue }}
+          </div>
+        </template>
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <NClearButton
           v-if="clearable"

@@ -115,16 +115,15 @@ const second = computed<number>({
   <Popover v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
-        role="picker"
+        role="combobox"
         :aria-expanded="open"
         :disabled="disabled"
         :class="cn('group/input_border', props.class)"
+        v-bind="$attrs"
       >
-        <template v-if="modelValue">
-          <div class="flex-1 truncate">
-            {{ df.format(new Date(modelValue)) }}
-          </div>
-        </template>
+        <div v-if="modelValue" class="flex-1 truncate">
+          {{ df.format(new Date(modelValue)) }}
+        </div>
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <NClearButton
           v-if="clearable"

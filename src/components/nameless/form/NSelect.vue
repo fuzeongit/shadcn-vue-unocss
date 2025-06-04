@@ -84,6 +84,8 @@ watch(
   },
   { immediate: true }
 );
+
+const displayValue = computed(() => cacheFrameworks.value.find(it => it.value === modelValue.value));
 </script>
 
 <template>
@@ -95,17 +97,10 @@ watch(
         :aria-expanded="open"
         :disabled="disabled"
         :class="cn('group/input_border', props.class)"
+        v-bind="$attrs"
       >
-        <div
-          v-if="
-            cacheFrameworks.find(
-              // eslint-disable-next-line vue/no-undef-properties
-              (it: Nameless.Form.SelectOption) => it.value === modelValue
-            )
-          "
-          class="flex-1 truncate"
-        >
-          {{ cacheFrameworks.find((it: Nameless.Form.SelectOption) => it.value === modelValue)?.label ?? modelValue }}
+        <div v-if="displayValue" class="flex-1 truncate">
+          {{ displayValue?.label ?? modelValue }}
         </div>
         <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
         <NClearButton

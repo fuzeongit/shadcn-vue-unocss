@@ -43,8 +43,8 @@ const formSchema = toTypedSchema(
       z.array(z.number().int().positive()).max(0)
     ]),
     datetimeRange: z.union([
-      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2024-12-20').getTime())]),
-      z.array(z.number().int().positive()).max(0)
+      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2025-12-20').getTime())])
+      // z.array(z.number().int().positive()).max(0)
     ])
   })
 );
@@ -94,12 +94,18 @@ const test = async () => {
   controlledValues.value.str = 'str1';
 };
 const t = ref('12');
+
+const popoverRef = ref();
+
+const showPopover = event => {
+  popoverRef.value.show(event.target);
+};
 </script>
 
 <template>
   <div>
     {{ t }}
-    <NInput v-model="t" placeholder="str"></NInput>
+    <!-- <NInput v-model="t" placeholder="str"></NInput> -->
     <br />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
@@ -142,6 +148,7 @@ const t = ref('12');
       <Button @click="showDialog">dialog</Button>
       <Button @click="resetForm()">resetForm</Button>
       <Button @click="test">resetField</Button>
+      <Button @click="showPopover">popover</Button>
     </div>
     <form class="space-y-6 w-[300px]">
       <FormField v-slot="{ field }" name="str">
@@ -152,7 +159,6 @@ const t = ref('12');
               :model-value="field.value"
               placeholder="str"
               clearable
-              disabled
               @update:model-value="field['onUpdate:modelValue']"
             >
               <template #suffix>
@@ -168,7 +174,7 @@ const t = ref('12');
         </FormItem>
       </FormField>
 
-      <FormField v-slot="{ field }" name="num">
+  <FormField v-slot="{ field }" name="num">
         <FormItem v-auto-animate>
           <FormLabel>Num</FormLabel>
           <FormControl>
@@ -307,7 +313,8 @@ const t = ref('12');
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
         </FormItem>
-      </FormField>
+      </FormField> 
+
 
       <FormField v-slot="{ field }" name="datetimeRange" :validate-on-input="false">
         <FormItem v-auto-animate>
@@ -317,6 +324,7 @@ const t = ref('12');
               placeholder="datetimeRange"
               :model-value="field.value"
               clearable
+              class="test"
               @update:model-value="field['onUpdate:modelValue']"
             ></NDatetimeRangePicker>
           </FormControl>
@@ -324,7 +332,9 @@ const t = ref('12');
           <FormMessage />
         </FormItem>
       </FormField>
-      <Button type="click" @click.prevent="onSubmit">Submit</Button>
+      <Button type="button" @click.prevent="onSubmit">Submit</Button>
     </form>
+
+    <NPopover ref="popoverRef">123</NPopover>
   </div>
 </template>
