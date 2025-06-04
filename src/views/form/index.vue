@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { h } from 'vue';
+import { pick } from 'lodash-es';
 import * as z from 'zod';
 import { vAutoAnimate } from '@formkit/auto-animate/vue';
 import { toTypedSchema } from '@vee-validate/zod';
@@ -31,7 +32,7 @@ class Dto {
 const formSchema = toTypedSchema(
   z.object({
     str: z.enum(['str1', 'str2', 'str3']),
-    num: z.number().min(1).max(10000),
+    num: z.number().min(91).max(10000).optional(),
     sel: z.string(),
     mulSel: z.array(z.string()).min(2),
     remSel: z.string(),
@@ -39,17 +40,17 @@ const formSchema = toTypedSchema(
     date: z.number().int().positive(),
     datetime: z.number().int().positive().max(new Date('2024-12-20').getTime()),
     dateRange: z.union([
-      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2024-12-20').getTime())]),
-      z.array(z.number().int().positive()).max(0)
+      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2025-12-20').getTime())]),
+      z.array(z.number().int().positive()).min(2)
     ]),
     datetimeRange: z.union([
-      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2025-12-20').getTime())])
-      // z.array(z.number().int().positive()).max(0)
+      z.tuple([z.number().int().positive(), z.number().int().positive().max(new Date('2025-12-20').getTime())]),
+      z.array(z.number().int().positive()).min(2)
     ])
   })
 );
 
-const { validate, setValues, controlledValues, setFieldValue, resetForm } = useForm({
+const { validate, setValues, controlledValues, setFieldValue, resetForm, resetField, validateField, errors } = useForm({
   validationSchema: formSchema,
   initialValues: new Dto()
 });
@@ -87,11 +88,31 @@ const showDialog = () => {
   window.$dialog?.show({ title: <div>123</div> });
 };
 
-const test = async () => {
+const handleResetField = async () => {
+  // 要校验的字段
+  const keys = ['str', 'mulSel'];
+  // // 获取要校验的字段当前是否有 error ，如果有，则不应该继续 validateField
+  // const errs = pick(errors.value, keys);
+  // // 提取出应该校验的字段
+  // const shouldValidateFields = keys.filter(key => !errs[key as keyof typeof errs]);
+
   // resetForm({ values: controlledValues.value });
-  // await nextTick();
+
+  await Promise.all(keys.map(key => validateField(key as keyof typeof controlledValues.value)));
+
+  ['num', 'sel', 'remSel', 'remMulSel', 'date', 'datetime', 'dateRange', 'datetimeRange'].forEach(key => {
+    if (errors.value[key]) {
+      resetField(key, {
+        value: controlledValues.value[key],
+        valid: false
+      });
+    }
+  });
+
+  // resetForm({ values: controlledValues.value });
+
+  // console.log(errs, shouldValidateFields);
   // validateField('str');
-  controlledValues.value.str = 'str1';
 };
 const t = ref('12');
 
@@ -104,8 +125,7 @@ const showPopover = event => {
 
 <template>
   <div>
-    {{ t }}
-    <!-- <NInput v-model="t" placeholder="str"></NInput> -->
+    <NInput v-model="t" placeholder="str"></NInput>
     <br />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
@@ -147,7 +167,7 @@ const showPopover = event => {
       <Button @click="changeValue">changeValue</Button>
       <Button @click="showDialog">dialog</Button>
       <Button @click="resetForm()">resetForm</Button>
-      <Button @click="test">resetField</Button>
+      <Button @click="handleResetField">resetField</Button>
       <Button @click="showPopover">popover</Button>
     </div>
     <form class="space-y-6 w-[300px]">
@@ -174,9 +194,12 @@ const showPopover = event => {
         </FormItem>
       </FormField>
 
-  <FormField v-slot="{ field }" name="num">
+      <FormField v-slot="{ field }" name="num">
         <FormItem v-auto-animate>
-          <FormLabel>Num</FormLabel>
+          <FormLabel>
+            Num
+            <span class="c-destructive">*</span>
+          </FormLabel>
           <FormControl>
             <NNumberInput
               :model-value="field.value"
@@ -313,8 +336,7 @@ const showPopover = event => {
           <FormDescription>This is your public display name.</FormDescription>
           <FormMessage />
         </FormItem>
-      </FormField> 
-
+      </FormField>
 
       <FormField v-slot="{ field }" name="datetimeRange" :validate-on-input="false">
         <FormItem v-auto-animate>

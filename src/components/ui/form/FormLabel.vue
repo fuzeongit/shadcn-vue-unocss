@@ -7,7 +7,9 @@ import { useFormField } from './useFormField';
 
 const props = defineProps<LabelProps & { class?: HTMLAttributes['class'] }>();
 
-const { error, formItemId } = useFormField();
+const { error, formItemId,valid,
+isDirty,
+isTouched } = useFormField();
 </script>
 
 <template>

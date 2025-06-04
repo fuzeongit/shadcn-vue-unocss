@@ -1,7 +1,6 @@
 <script lang="ts" setup generic="T extends Nameless.Form.SelectValue | Nameless.Form.SelectValue[]">
 import type { HTMLAttributes } from 'vue';
 import { Icon } from '@iconify/vue';
-import { Search } from 'lucide-vue-next';
 import { ListboxContent, ListboxFilter, ListboxGroup, ListboxItem, ListboxRoot, Primitive } from 'reka-ui';
 import { cn } from '@/lib/utils';
 
@@ -49,7 +48,7 @@ const searchValue = useVModel(props, 'searchValue', emit, {
     "
   >
     <div class="flex items-center border-b px-3" cmdk-input-wrapper>
-      <Search class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+      <IconLucideSearch class="mr-2 h-4 w-4 shrink-0 opacity-50" />
       <ListboxFilter
         v-model="searchValue"
         auto-focus
