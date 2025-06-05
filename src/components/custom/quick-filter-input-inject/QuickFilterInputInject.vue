@@ -14,8 +14,7 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           v-if="item.option.type === FilterType.String"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
+          v-bind="item.option"
           @update:model-value="field['onUpdate:modelValue']"
         ></NInput>
 
@@ -23,11 +22,7 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           v-if="item.option.type === FilterType.Number"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
-          :placeholder="item.option.placeholder"
-          :min="item.option.min"
-          :max="item.option.max"
-          :step="item.option.step"
-          :clearable="item.option.clearable ?? true"
+          v-bind="item.option"
           @update:model-value="field['onUpdate:modelValue']"
         ></NNumberInput>
 
@@ -35,20 +30,7 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           v-if="item.option.type === FilterType.Select"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
-          :options="item.option.options"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
-          @update:model-value="field['onUpdate:modelValue']"
-        ></NSelect>
-
-        <NSelect
-          v-if="item.option.type === FilterType.RemoteSelect"
-          :model-value="field.value"
-          remote
-          :class="cn('md:w-48', item.option.class)"
-          :options="item.option.options"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
+          v-bind="item.option"
           @update:model-value="field['onUpdate:modelValue']"
         ></NSelect>
 
@@ -56,20 +38,7 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           v-if="item.option.type === FilterType.MultiSelect"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
-          :options="item.option.options"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
-          @update:model-value="field['onUpdate:modelValue']"
-        ></NTagsWithCombobox>
-
-        <NTagsWithCombobox
-          v-if="item.option.type === FilterType.RemoteMultiSelect"
-          :model-value="field.value"
-          remote
-          :class="cn('md:w-48', item.option.class)"
-          :options="item.option.options"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
+          v-bind="item.option"
           @update:model-value="field['onUpdate:modelValue']"
         ></NTagsWithCombobox>
 
@@ -77,19 +46,33 @@ const { search, form, filterOptions, reset } = useFilterInject()!;
           v-if="item.option.type === FilterType.Date"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
+          v-bind="item.option"
           @update:model-value="field['onUpdate:modelValue']"
         ></NDatePicker>
+
+        <NDatetimePicker
+          v-if="item.option.type === FilterType.Datetime"
+          :model-value="field.value"
+          :class="cn('md:w-48', item.option.class)"
+          v-bind="item.option"
+          @update:model-value="field['onUpdate:modelValue']"
+        ></NDatetimePicker>
 
         <NDateRangePicker
           v-if="item.option.type === FilterType.DateRange"
           :model-value="field.value"
           :class="cn('md:w-48', item.option.class)"
-          :placeholder="item.option.placeholder"
-          :clearable="item.option.clearable ?? true"
+          v-bind="item.option"
           @update:model-value="field['onUpdate:modelValue']"
         ></NDateRangePicker>
+
+        <NDatetimeRangePicker
+          v-if="item.option.type === FilterType.DatetimeRange"
+          :model-value="field.value"
+          :class="cn('md:w-48', item.option.class)"
+          v-bind="item.option"
+          @update:model-value="field['onUpdate:modelValue']"
+        ></NDatetimeRangePicker>
       </FormField>
       <Button @click="search">Search</Button>
       <Button variant="outline" @click="reset">Reset</Button>

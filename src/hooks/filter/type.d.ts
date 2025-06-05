@@ -1,5 +1,8 @@
 declare namespace QuickFilter {
   type TanstackColumnFilter = import('@tanstack/vue-table').ColumnFilter;
+
+  type LocalCombobox = import('src/components/nameless/form').LocalCombobox<TNameless.Form.SelectValue>;
+  type RemoteCombobox = import('src/components/nameless/form').RemoteCombobox<Nameless.Form.SelectValue>;
   // interface SelectOption {
   //   label: string;
   //   value?: null | string | number | boolean;
@@ -22,44 +25,30 @@ declare namespace QuickFilter {
     step?: number;
   }
 
-  interface SelectOption extends Option {
-    type: import('./constants').FilterType.Select;
-    options: ((value?: string) => Promise<Nameless.Form.SelectOption<T>[]>) | Nameless.Form.SelectOption<T>[];
-    valueType?: 'string' | 'number';
-    immediate?: boolean;
+  type SelectOption = Option &
+    (LocalCombobox | RemoteCombobox) & {
+      type: import('./constants').FilterType.Select;
+    };
+
+  type MultiSelectOption = Option &
+    (LocalCombobox | RemoteCombobox) & {
+      type: import('./constants').FilterType.MultiSelect;
+    };
+
+  interface DateOption extends Option {
+    type: import('./constants').FilterType.Date;
   }
 
-  interface RemoteSelectOption extends Option {
-    type: import('./constants').FilterType.RemoteSelect;
-    options: (value?: string) => Promise<Nameless.Form.SelectOption<T>[]>;
-    valueType?: 'string' | 'number';
-    searchTerm?: string;
-    immediate?: boolean;
-  }
-
-  interface MultiSelectOption extends Option {
-    type: import('./constants').FilterType.MultiSelect;
-    options: Nameless.MaybePromise<Nameless.Form.SelectOption<Nameless.Form.SelectValue>[]>;
-    valueType?: 'string' | 'number';
-    searchTerm?: string;
-    immediate?: boolean;
-  }
-
-  interface RemoteMultiSelectOption extends Option {
-    type: import('./constants').FilterType.RemoteMultiSelect;
-    options: (value?: string) => Promise<Nameless.Form.SelectOption<Nameless.Form.SelectValue>[]>;
-    valueType?: 'string' | 'number';
-    immediate?: boolean;
+  interface DatetimeOption extends Option {
+    type: import('./constants').FilterType.Datetime;
   }
 
   interface DateRangeOption extends Option {
     type: import('./constants').FilterType.DateRange;
-    startPlaceholder?: string;
-    endPlaceholder?: string;
   }
 
-  interface DateOption extends Option {
-    type: import('./constants').FilterType.Date;
+  interface DatetimeRangeOption extends Option {
+    type: import('./constants').FilterType.DatetimeRange;
   }
 
   interface AutoCompleteOption extends Option {
@@ -76,11 +65,11 @@ declare namespace QuickFilter {
     | StringOption
     | NumberOption
     | SelectOption
-    | RemoteSelectOption
     | MultiSelectOption
-    | RemoteMultiSelectOption
-    | DateRangeOption
     | DateOption
+    | DatetimeOption
+    | DateRangeOption
+    | DatetimeRangeOption
     | AutoCompleteOption;
 
   type Model<T> = {

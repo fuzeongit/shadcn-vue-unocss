@@ -1,41 +1,22 @@
 <script lang="ts" setup generic="T extends Nameless.Form.SelectValue">
-import { type HTMLAttributes } from 'vue';
-import { unionBy } from 'lodash-es';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
+import type { BaseInputProps, LocalCombobox, RemoteCombobox } from '.';
+import { useCacheOptions } from '.';
 
-interface Props {
-  defaultValue?: T;
-  modelValue?: T;
-  // eslint-disable-next-line vue/no-reserved-props
-  class?: HTMLAttributes['class'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-}
-
-type Remote = {
-  remote?: true;
-  options: (value?: string) => Promise<Nameless.Form.SelectOption<T>[]>;
-};
-
-type Local = {
-  remote?: false;
-  options: Nameless.MaybePromise<Nameless.Form.SelectOption<T>[]>;
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props extends BaseInputProps<T> {}
 
 defineComponent({
   name: 'NSelect'
 });
 
-const props = withDefaults(defineProps<Props & (Remote | Local)>(), {
-  defaultValue: undefined,
-  modelValue: undefined,
-  class: undefined,
+const props = withDefaults(defineProps<Props & (RemoteCombobox<T> | LocalCombobox<T>)>(), {
   placeholder: $t('nameless.form.select.placeholder'),
   remote: false,
+  clearable: true,
   disabled: false
 });
 
@@ -47,45 +28,22 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue as any,
   passive: true,
   deep: true
-}) as Ref<T>;
+}) as Ref<T | undefined>;
 
 const open = ref(false);
 const divRef = ref<HTMLDivElement>();
 const style = useElementBounding(() => divRef.value);
 
-const searchValue = ref<string>();
-
-const localOptions = asyncComputed(async () => {
-  if (!props.remote) {
-    return typeof props.options === 'function' ? await props.options() : props.options;
-  }
-  return [];
-}, []);
-
-const frameworks = asyncComputed(() => {
-  return props.remote
-    ? props.options(searchValue.value)
-    : localOptions.value.filter(it => (searchValue.value === undefined ? true : it.label.includes(searchValue.value)));
-}, []);
+const { searchValue, cacheOptions, currentOptions } = useCacheOptions<T>(props);
 
 const popoverContentStyle = computed(() => ({ width: `${style.width.value}px` }));
-
-const cacheFrameworks: Ref<Nameless.Form.SelectOption<T>[]> = ref([]);
 
 const select = (option: T) => {
   open.value = false;
   modelValue.value = option;
 };
 
-watch(
-  frameworks,
-  () => {
-    cacheFrameworks.value = unionBy(cacheFrameworks.value, frameworks.value, 'value');
-  },
-  { immediate: true }
-);
-
-const displayValue = computed(() => cacheFrameworks.value.find(it => it.value === modelValue.value));
+const displayValue = computed(() => cacheOptions.value.find(it => it.value === modelValue.value));
 </script>
 
 <template>
@@ -95,17 +53,17 @@ const displayValue = computed(() => cacheFrameworks.value.find(it => it.value ==
         ref="divRef"
         :role="remote ? 'combobox' : 'select'"
         :aria-expanded="open"
-        :disabled="disabled"
+        :disabled="props.disabled"
         :class="cn('group/input_border', props.class)"
         v-bind="$attrs"
       >
         <div v-if="displayValue" class="flex-1 truncate">
           {{ displayValue?.label ?? modelValue }}
         </div>
-        <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
+        <div v-else class="truncate text-muted-foreground flex-1">{{ props.placeholder }}</div>
         <NClearButton
-          v-if="clearable"
-          :visible="modelValue !== undefined && modelValue !== null && !disabled"
+          v-if="props.clearable"
+          :visible="modelValue !== undefined && modelValue !== null && !props.disabled"
           @click="emit('update:modelValue', undefined as any)"
         ></NClearButton>
         <slot name="suffix" />
@@ -116,7 +74,7 @@ const displayValue = computed(() => cacheFrameworks.value.find(it => it.value ==
       <NRemoteCommand
         :search-value="searchValue"
         :model-value="modelValue"
-        :options="frameworks"
+        :options="currentOptions"
         @update:model-value="select"
         @update:search-value="searchValue = $event"
       ></NRemoteCommand>

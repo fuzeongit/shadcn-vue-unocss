@@ -30,11 +30,10 @@ export class Params extends Pageable {
 
   @Type(() => String)
   @DropNull()
-  @ParseArray()
   @IsString({ each: true })
   @IsOptional()
   @Expose()
-  mulSel!: (keyof typeof SelectOptions)[];
+  mulSel?: (keyof typeof SelectOptions)[];
 
   @Type(() => String)
   @DropNull()
@@ -61,11 +60,27 @@ export class Params extends Pageable {
 
   @Type(() => Number)
   @DropNull()
+  @IsValidDate()
+  @IsNumber()
+  @IsOptional()
+  @Expose()
+  datetime?: number;
+
+  @Type(() => Number)
+  @DropNull()
   @IsValidDate({ each: true })
   @IsNumber({}, { each: true })
   @IsOptional()
   @Expose()
   dateRange?: number[];
+
+  @Type(() => Number)
+  @DropNull()
+  @IsValidDate({ each: true })
+  @IsNumber({}, { each: true })
+  @IsOptional()
+  @Expose()
+  datetimeRange?: number[];
 
   // @Expose({ name: 'startDate', toPlainOnly: true })
   // @Exclude({ toClassOnly: true })

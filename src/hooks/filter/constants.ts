@@ -3,10 +3,10 @@ export enum FilterType {
   Number,
   Select,
   MultiSelect,
-  RemoteSelect,
-  RemoteMultiSelect,
-  DateRange,
   Date,
+  Datetime,
+  DateRange,
+  DatetimeRange,
   AutoComplete,
   Cascader
 }

@@ -125,7 +125,8 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
       placeholder: '单选'
     },
     remSel: {
-      type: FilterType.RemoteSelect,
+      type: FilterType.Select,
+      remote: true,
       options: fetchMock2,
       placeholder: '远端单选'
     },
@@ -135,7 +136,8 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
       placeholder: '多选'
     },
     remMulSel: {
-      type: FilterType.RemoteMultiSelect,
+      type: FilterType.MultiSelect,
+      remote: true,
       options: fetchMock2,
       placeholder: '远端多选'
     },
@@ -143,9 +145,19 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
       type: FilterType.Date,
       placeholder: '单一日期'
     },
+    datetime: {
+      type: FilterType.Datetime,
+      placeholder: '单一时间'
+    },
     dateRange: {
       type: FilterType.DateRange,
-      placeholder: '日期范围'
+      placeholder: '日期范围',
+      class: 'md:w-98'
+    },
+    datetimeRange: {
+      type: FilterType.DatetimeRange,
+      placeholder: '时间范围',
+      class: 'md:w-98'
     }
   }),
   columnPinningState: ref({

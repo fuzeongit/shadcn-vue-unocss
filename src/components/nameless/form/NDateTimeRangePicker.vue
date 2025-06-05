@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
 import { computed, ref, toRaw } from 'vue';
 import { useVModel } from '@vueuse/core';
 import dayjs from 'dayjs';
@@ -12,24 +11,16 @@ import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
+import type { BaseInputProps } from '.';
 import { extractDatetime } from '.';
 
-interface Props {
-  defaultValue?: (number | undefined)[];
-  modelValue?: (number | undefined)[];
-  // eslint-disable-next-line vue/no-reserved-props
-  class?: HTMLAttributes['class'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props extends BaseInputProps<(number | undefined)[]> {}
 
 const props = withDefaults(defineProps<Props>(), {
   defaultValue: () => [],
-  modelValue: undefined,
-  class: undefined,
   placeholder: $t('nameless.form.datetimeRangePicker.placeholder'),
-  clearable: false,
+  clearable: true,
   disabled: false
 });
 
@@ -37,14 +28,13 @@ const emit = defineEmits<{
   (e: 'update:modelValue', v: (number | undefined)[]): void;
 }>();
 
-// v-model binding (deep = true)
 const modelValue = useVModel(props, 'modelValue', emit, {
+  // eslint-disable-next-line vue/no-undef-properties
   defaultValue: props.defaultValue,
   passive: true,
   deep: true
-}) as Ref<(number | undefined)[]>;
+});
 
-// i18n & formatter
 const i18nInject = useI18nInject();
 const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
 const df = computed(
@@ -56,14 +46,13 @@ const df = computed(
     })
 );
 
-// single computed to map between modelValue[] and calendar + times
 const localValue = computed<{
   dateRange: DateRange;
   startTime: ReturnType<typeof extractDatetime>;
   endTime: ReturnType<typeof extractDatetime>;
 }>({
   get() {
-    const [t0, t1] = modelValue.value;
+    const [t0, t1] = modelValue.value ?? [];
     const startDay = t0 ? dayjs(t0) : undefined;
     const endDay = t1 ? dayjs(t1) : undefined;
     return {
@@ -157,7 +146,7 @@ const endSecond = computed<number>({
 const open = ref(false);
 
 const displayValue = computed(() =>
-  modelValue.value.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
+  modelValue.value?.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
 );
 </script>
 
@@ -167,7 +156,7 @@ const displayValue = computed(() =>
       <NInputBorder
         role="combobox"
         :aria-expanded="open"
-        :disabled="disabled"
+        :disabled="props.disabled"
         :class="cn('group/input_border', props.class)"
         v-bind="$attrs"
       >
@@ -176,10 +165,10 @@ const displayValue = computed(() =>
             {{ displayValue }}
           </div>
         </template>
-        <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
+        <div v-else class="truncate text-muted-foreground flex-1">{{ props.placeholder }}</div>
         <NClearButton
-          v-if="clearable"
-          :visible="Boolean(modelValue?.length) && !disabled"
+          v-if="props.clearable"
+          :visible="Boolean(modelValue?.length) && !props.disabled"
           @click="emit('update:modelValue', [])"
         ></NClearButton>
         <slot name="suffix" />

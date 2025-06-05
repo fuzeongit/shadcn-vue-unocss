@@ -14,7 +14,7 @@ interface Props extends NumberFieldRootProps {
 const props = withDefaults(defineProps<Props>(), {
   class: undefined,
   placeholder: $t('nameless.form.numberInput.placeholder'),
-  clearable: false
+  clearable: true
 });
 const emit = defineEmits<NumberFieldRootEmits>();
 

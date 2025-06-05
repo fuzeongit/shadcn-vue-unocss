@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { HTMLAttributes } from 'vue';
 import dayjs from 'dayjs';
 import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -7,27 +6,18 @@ import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
 import NInputBorder from './NInputBorder.vue';
+import type { BaseInputProps } from '.';
 
-interface Props {
-  defaultValue?: number;
-  modelValue?: number;
-  // eslint-disable-next-line vue/no-reserved-props
-  class?: HTMLAttributes['class'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props extends BaseInputProps<number> {}
 
 defineComponent({
   name: 'NDatePicker'
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  defaultValue: undefined,
-  modelValue: undefined,
-  class: undefined,
   placeholder: $t('nameless.form.datePicker.placeholder'),
-  clearable: false,
+  clearable: true,
   disabled: false
 });
 
@@ -38,6 +28,7 @@ const emit = defineEmits<{
 const i18nInject = useI18nInject();
 
 const modelValue = useVModel(props, 'modelValue', emit, {
+  // eslint-disable-next-line vue/no-undef-properties
   defaultValue: props.defaultValue,
   passive: true,
   deep: true
@@ -74,7 +65,7 @@ const localValue = computed<CalendarDate | undefined>({
       <NInputBorder
         role="combobox"
         :aria-expanded="open"
-        :disabled="disabled"
+        :disabled="props.disabled"
         :class="cn('group/input_border', props.class)"
         v-bind="$attrs"
       >
@@ -83,10 +74,10 @@ const localValue = computed<CalendarDate | undefined>({
             {{ df.format(new Date(modelValue)) }}
           </div>
         </template>
-        <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
+        <div v-else class="truncate text-muted-foreground flex-1">{{ props.placeholder }}</div>
         <NClearButton
-          v-if="clearable"
-          :visible="modelValue !== undefined && modelValue !== null && !disabled"
+          v-if="props.clearable"
+          :visible="modelValue !== undefined && modelValue !== null && !props.disabled"
           @click="emit('update:modelValue', undefined as any)"
         ></NClearButton>
         <slot name="suffix" />

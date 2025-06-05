@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
 import dayjs from 'dayjs';
 import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import type { DateRange } from 'reka-ui';
@@ -8,23 +7,15 @@ import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import { useI18nInject } from '../common/i18n.inject';
+import type { BaseInputProps } from '.';
 
-interface Props {
-  defaultValue?: (number | undefined)[];
-  modelValue?: (number | undefined)[];
-  // eslint-disable-next-line vue/no-reserved-props
-  class?: HTMLAttributes['class'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props extends BaseInputProps<(number | undefined)[]> {}
 
 const props = withDefaults(defineProps<Props>(), {
   defaultValue: () => [],
-  modelValue: undefined,
-  class: undefined,
   placeholder: $t('nameless.form.dateRangePicker.placeholder'),
-  clearable: false,
+  clearable: true,
   disabled: false
 });
 
@@ -33,10 +24,11 @@ const emit = defineEmits<{
 }>();
 
 const modelValue = useVModel(props, 'modelValue', emit, {
+  // eslint-disable-next-line vue/no-undef-properties
   defaultValue: props.defaultValue,
   passive: true,
   deep: true
-}) as Ref<(number | undefined)[]>;
+});
 
 const i18nInject = useI18nInject();
 
@@ -66,7 +58,7 @@ const localValue = computed<DateRange>({
 const open = ref(false);
 
 const displayValue = computed(() =>
-  modelValue.value.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
+  modelValue.value?.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
 );
 </script>
 
@@ -76,7 +68,7 @@ const displayValue = computed(() =>
       <NInputBorder
         ole="picker"
         :aria-expanded="open"
-        :disabled="disabled"
+        :disabled="props.disabled"
         :class="cn('group/input_border', props.class)"
         v-bind="$attrs"
       >
@@ -85,10 +77,10 @@ const displayValue = computed(() =>
             {{ displayValue }}
           </div>
         </template>
-        <div v-else class="truncate text-muted-foreground flex-1">{{ placeholder }}</div>
+        <div v-else class="truncate text-muted-foreground flex-1">{{ props.placeholder }}</div>
         <NClearButton
-          v-if="clearable"
-          :visible="Boolean(modelValue?.length) && !disabled"
+          v-if="props.clearable"
+          :visible="Boolean(modelValue?.length) && !props.disabled"
           @click="emit('update:modelValue', [])"
         ></NClearButton>
         <slot name="suffix" />

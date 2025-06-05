@@ -7,6 +7,7 @@ const props = defineProps<{
 }>();
 
 const open = ref(false);
+
 const { search, filterOptions, form } = useFilterInject<QuickFilter.SelectOption, VM>()!;
 
 const filterOption = computed(() => filterOptions.value.find(x => x.id === props.id)!);
