@@ -1,22 +1,27 @@
 <script setup lang="ts">
 import dayjs from 'dayjs';
-import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
-import type { DateRange } from 'reka-ui';
+import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
+import { type DateRange } from 'reka-ui';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
-import { useI18nInject } from '../common/i18n.inject';
-import type { BaseInputProps } from '.';
+import { type BaseInputProps, useDateFormatter } from '.';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props extends BaseInputProps<(number | undefined)[]> {}
+interface Props extends BaseInputProps<(number | undefined)[]> {
+  picker?: boolean;
+  dateTimeFormatOptions?: Intl.DateTimeFormatOptions;
+}
 
 const props = withDefaults(defineProps<Props>(), {
   defaultValue: () => [],
   placeholder: $t('nameless.form.dateRangePicker.placeholder'),
   clearable: true,
-  disabled: false
+  disabled: false,
+  picker: true,
+  dateTimeFormatOptions: () => ({
+    dateStyle: 'short'
+  })
 });
 
 const emit = defineEmits<{
@@ -30,16 +35,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   deep: true
 });
 
-const i18nInject = useI18nInject();
-
-const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
-
-const df = computed(
-  () =>
-    new DateFormatter(locale?.value, {
-      dateStyle: 'short'
-    })
-);
+const { dateFormatter, locale } = useDateFormatter(props.dateTimeFormatOptions);
 
 const localValue = computed<DateRange>({
   get() {
@@ -58,12 +54,14 @@ const localValue = computed<DateRange>({
 const open = ref(false);
 
 const displayValue = computed(() =>
-  modelValue.value?.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
+  modelValue.value?.every(it => it)
+    ? modelValue.value.map(it => dateFormatter.value.format(new Date(it!))).join('-')
+    : undefined
 );
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
         ole="picker"
@@ -91,4 +89,5 @@ const displayValue = computed(() =>
       <RangeCalendar v-model="localValue" initial-focus :number-of-months="2" :locale="locale" />
     </PopoverContent>
   </Popover>
+  <RangeCalendar v-else v-model="localValue" initial-focus :number-of-months="2" :locale="locale" />
 </template>

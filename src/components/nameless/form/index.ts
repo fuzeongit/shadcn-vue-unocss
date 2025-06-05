@@ -1,6 +1,8 @@
 import type { HTMLAttributes } from 'vue';
 import dayjs from 'dayjs';
 import { unionBy } from 'lodash-es';
+import { DateFormatter } from '@internationalized/date';
+import { useI18nInject } from '../common/i18n.inject';
 
 export type RemoteCombobox<T extends Nameless.Form.SelectValue> = {
   remote?: true;
@@ -90,4 +92,14 @@ export const useCacheOptions = <T extends Nameless.Form.SelectValue>({
     localOptions,
     currentOptions
   };
+};
+
+export const useDateFormatter = (dateTimeFormatOptions: Intl.DateTimeFormatOptions) => {
+  const i18nInject = useI18nInject();
+
+  const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
+
+  const dateFormatter = computed(() => new DateFormatter(locale?.value, dateTimeFormatOptions));
+
+  return { dateFormatter, locale };
 };

@@ -31,18 +31,18 @@ const reset = () => {
           <IconIconoirFilter v-else class="text-muted-foreground"></IconIconoirFilter>
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
-        <div class="flex flex-col gap-2">
+      <PopoverContent class="w-auto p-0">
+        <div class="p-3">
           <NInput
             :model-value="field.value"
             :placeholder="filterOption.option.placeholder"
-            clearable
+            v-bind="filterOption.option"
             @update:model-value="field['onUpdate:modelValue']"
           ></NInput>
-          <div class="flex items-center justify-between gap-2">
-            <Button class="flex-1" variant="outline" @click="reset">重置</Button>
-            <Button class="flex-1" @click="query">确定</Button>
-          </div>
+        </div>
+        <div class="flex items-center justify-between gap-2 p-3 border-t">
+          <Button class="flex-1" variant="outline" @click="reset">重置</Button>
+          <Button class="flex-1" @click="query">确定</Button>
         </div>
       </PopoverContent>
     </Popover>

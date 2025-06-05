@@ -1,9 +1,5 @@
 <script lang="tsx" setup generic="VM extends object">
-import dayjs from 'dayjs';
-import type { DateValue } from '@internationalized/date';
-import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 import { useFilterInject } from '@/hooks/filter';
-import { useI18nInject } from '@/components/nameless/common/i18n.inject';
 import { FormField } from '@/components/ui/form';
 const props = defineProps<{
   id: string;
@@ -24,22 +20,6 @@ const reset = () => {
   form.resetField(filterOption.value.id);
   query();
 };
-
-const i18nInject = useI18nInject();
-
-const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
-
-const toCalendarDate = (time?: number) => {
-  if (time) {
-    const date = dayjs(time);
-    return new CalendarDate(date.year(), date.month() + 1, date.date());
-  }
-  return undefined;
-};
-
-const toTime = (value?: DateValue) => {
-  return (value ? value.toDate(getLocalTimeZone()).getTime() : undefined) as any;
-};
 </script>
 
 <template>
@@ -54,18 +34,16 @@ const toTime = (value?: DateValue) => {
           <IconIconoirFilter v-else class="text-muted-foreground"></IconIconoirFilter>
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
-        <div class="flex flex-col gap-2">
-          <Calendar
-            :model-value="toCalendarDate(field.value)"
-            initial-focus
-            :locale="locale"
-            @update:model-value="field['onUpdate:modelValue']?.(toTime($event))"
-          />
-          <div class="flex items-center justify-between gap-2">
-            <Button class="flex-1" variant="outline" @click="reset">重置</Button>
-            <Button class="flex-1" @click="query">确定</Button>
-          </div>
+      <PopoverContent class="w-auto p-0">
+        <NDatePicker
+          :picker="false"
+          :model-value="field.value"
+          v-bind="filterOption.option"
+          @update:model-value="field['onUpdate:modelValue']?.($event)"
+        />
+        <div class="flex items-center justify-between gap-2 p-3 border-t">
+          <Button class="flex-1" variant="outline" @click="reset">重置</Button>
+          <Button class="flex-1" @click="query">确定</Button>
         </div>
       </PopoverContent>
     </Popover>

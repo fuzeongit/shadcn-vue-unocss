@@ -6,8 +6,9 @@ import NInputBorder from './NInputBorder.vue';
 import type { BaseInputProps, LocalCombobox, RemoteCombobox } from '.';
 import { useCacheOptions } from '.';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props extends BaseInputProps<T[]> {}
+interface Props extends BaseInputProps<T[]> {
+  picker?: boolean;
+}
 
 defineComponent({
   name: 'NTagsWithCombobox'
@@ -17,7 +18,8 @@ const props = withDefaults(defineProps<Props & (RemoteCombobox<T> | LocalCombobo
   defaultValue: () => [],
   placeholder: $t('nameless.form.tagsWithCombobox.placeholder'),
   clearable: true,
-  disabled: false
+  disabled: false,
+  picker: true
 });
 
 const emit = defineEmits<{
@@ -63,7 +65,7 @@ const closeTag = (item: T) => {
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
         ref="tagsInput"
@@ -114,6 +116,15 @@ const closeTag = (item: T) => {
       ></NRemoteCommand>
     </PopoverContent>
   </Popover>
+  <NRemoteCommand
+    v-else
+    :search-value="searchValue"
+    :model-value="modelValue"
+    :options="currentOptions"
+    multiple
+    @update:model-value="select"
+    @update:search-value="searchValue = $event"
+  ></NRemoteCommand>
 </template>
 
 <style></style>

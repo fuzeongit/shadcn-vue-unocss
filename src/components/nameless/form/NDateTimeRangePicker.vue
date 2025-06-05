@@ -3,25 +3,32 @@ import { computed, ref, toRaw } from 'vue';
 import { useVModel } from '@vueuse/core';
 import dayjs from 'dayjs';
 import { eq } from 'lodash-es';
-import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
+import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 import type { DateRange } from 'reka-ui';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
-import { useI18nInject } from '../common/i18n.inject';
 import type { BaseInputProps } from '.';
-import { extractDatetime } from '.';
+import { extractDatetime, useDateFormatter } from '.';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props extends BaseInputProps<(number | undefined)[]> {}
+interface Props extends BaseInputProps<(number | undefined)[]> {
+  picker?: boolean;
+  dateTimeFormatOptions?: Intl.DateTimeFormatOptions;
+}
 
 const props = withDefaults(defineProps<Props>(), {
   defaultValue: () => [],
   placeholder: $t('nameless.form.datetimeRangePicker.placeholder'),
   clearable: true,
-  disabled: false
+  disabled: false,
+  picker: true,
+  dateTimeFormatOptions: () => ({
+    dateStyle: 'short',
+    timeStyle: 'medium',
+    hourCycle: 'h23'
+  })
 });
 
 const emit = defineEmits<{
@@ -35,16 +42,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   deep: true
 });
 
-const i18nInject = useI18nInject();
-const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
-const df = computed(
-  () =>
-    new DateFormatter(locale.value, {
-      dateStyle: 'short',
-      timeStyle: 'medium',
-      hourCycle: 'h23'
-    })
-);
+const { dateFormatter, locale } = useDateFormatter(props.dateTimeFormatOptions);
 
 const localValue = computed<{
   dateRange: DateRange;
@@ -146,12 +144,14 @@ const endSecond = computed<number>({
 const open = ref(false);
 
 const displayValue = computed(() =>
-  modelValue.value?.every(it => it) ? modelValue.value.map(it => df.value.format(new Date(it!))).join('-') : undefined
+  modelValue.value?.every(it => it)
+    ? modelValue.value.map(it => dateFormatter.value.format(new Date(it!))).join('-')
+    : undefined
 );
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
         role="combobox"
@@ -241,4 +241,69 @@ const displayValue = computed(() =>
       </div>
     </PopoverContent>
   </Popover>
+  <div v-else>
+    <RangeCalendar v-model="dateRange" initial-focus :number-of-months="2" :locale="locale" />
+    <div class="p-3 border-t space-y-4">
+      <div class="flex flex-col gap-y-4 sm:flex-row sm:gap-x-4 sm:gap-y-0">
+        <div>
+          <p class="mb-1 text-sm font-medium">{{ $t('nameless.form.datetimeRangePicker.startTime') }}</p>
+          <div class="flex gap-2">
+            <Input
+              v-model="startHour"
+              type="number"
+              min="0"
+              max="23"
+              :placeholder="$t('nameless.form.datetimeRangePicker.hour')"
+              class="h-8"
+            />
+            <Input
+              v-model="startMinute"
+              type="number"
+              min="0"
+              max="59"
+              :placeholder="$t('nameless.form.datetimeRangePicker.minute')"
+              class="h-8"
+            />
+            <Input
+              v-model="startSecond"
+              type="number"
+              min="0"
+              max="59"
+              :placeholder="$t('nameless.form.datetimeRangePicker.second')"
+              class="h-8"
+            />
+          </div>
+        </div>
+        <div>
+          <p class="mb-1 text-sm font-medium">{{ $t('nameless.form.datetimeRangePicker.endTime') }}</p>
+          <div class="flex gap-2">
+            <Input
+              v-model="endHour"
+              type="number"
+              min="0"
+              max="23"
+              :placeholder="$t('nameless.form.datetimeRangePicker.hour')"
+              class="h-8"
+            />
+            <Input
+              v-model="endMinute"
+              type="number"
+              min="0"
+              max="59"
+              :placeholder="$t('nameless.form.datetimeRangePicker.minute')"
+              class="h-8"
+            />
+            <Input
+              v-model="endSecond"
+              type="number"
+              min="0"
+              max="59"
+              :placeholder="$t('nameless.form.datetimeRangePicker.second')"
+              class="h-8"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

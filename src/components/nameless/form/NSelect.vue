@@ -6,8 +6,9 @@ import NInputBorder from './NInputBorder.vue';
 import type { BaseInputProps, LocalCombobox, RemoteCombobox } from '.';
 import { useCacheOptions } from '.';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props extends BaseInputProps<T> {}
+interface Props extends BaseInputProps<T> {
+  picker?: boolean;
+}
 
 defineComponent({
   name: 'NSelect'
@@ -17,7 +18,8 @@ const props = withDefaults(defineProps<Props & (RemoteCombobox<T> | LocalCombobo
   placeholder: $t('nameless.form.select.placeholder'),
   remote: false,
   clearable: true,
-  disabled: false
+  disabled: false,
+  picker: true
 });
 
 const emit = defineEmits<{
@@ -47,7 +49,7 @@ const displayValue = computed(() => cacheOptions.value.find(it => it.value === m
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
         ref="divRef"
@@ -80,6 +82,14 @@ const displayValue = computed(() => cacheOptions.value.find(it => it.value === m
       ></NRemoteCommand>
     </PopoverContent>
   </Popover>
+  <NRemoteCommand
+    v-else
+    :search-value="searchValue"
+    :model-value="modelValue"
+    :options="currentOptions"
+    @update:model-value="select"
+    @update:search-value="searchValue = $event"
+  ></NRemoteCommand>
 </template>
 
 <style></style>

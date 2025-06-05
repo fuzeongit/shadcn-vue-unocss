@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs';
-import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
+import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
-import { useI18nInject } from '../common/i18n.inject';
 import NInputBorder from './NInputBorder.vue';
 import type { BaseInputProps } from '.';
-import { extractDatetime } from '.';
+import { extractDatetime, useDateFormatter } from '.';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props extends BaseInputProps<number> {}
+interface Props extends BaseInputProps<number> {
+  picker?: boolean;
+  dateTimeFormatOptions?: Intl.DateTimeFormatOptions;
+}
 
 defineComponent({
   name: 'NDatePicker'
@@ -19,14 +20,18 @@ defineComponent({
 const props = withDefaults(defineProps<Props>(), {
   placeholder: $t('nameless.form.datetimePicker.placeholder'),
   clearable: true,
-  disabled: false
+  disabled: false,
+  picker: true,
+  dateTimeFormatOptions: () => ({
+    dateStyle: 'short',
+    timeStyle: 'medium',
+    hourCycle: 'h23'
+  })
 });
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: number): void;
 }>();
-
-const i18nInject = useI18nInject();
 
 const modelValue = useVModel(props, 'modelValue', emit, {
   // eslint-disable-next-line vue/no-undef-properties
@@ -35,16 +40,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   deep: true
 });
 
-const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
-
-const df = computed(
-  () =>
-    new DateFormatter(locale.value, {
-      dateStyle: 'short',
-      timeStyle: 'medium',
-      hourCycle: 'h23'
-    })
-);
+const { dateFormatter, locale } = useDateFormatter(props.dateTimeFormatOptions);
 
 const open = ref(false);
 
@@ -103,7 +99,7 @@ const second = computed<number>({
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
         role="combobox"
@@ -113,7 +109,7 @@ const second = computed<number>({
         v-bind="$attrs"
       >
         <div v-if="modelValue" class="flex-1 truncate">
-          {{ df.format(new Date(modelValue)) }}
+          {{ dateFormatter.format(new Date(modelValue)) }}
         </div>
         <div v-else class="truncate text-muted-foreground flex-1">{{ props.placeholder }}</div>
         <NClearButton
@@ -161,6 +157,41 @@ const second = computed<number>({
       </div>
     </PopoverContent>
   </Popover>
+  <div v-else>
+    <Calendar v-model="calendar" initial-focus :locale="locale" />
+    <div class="p-3 border-t space-y-4">
+      <div class="flex flex-col gap-y-4 sm:flex-row sm:gap-x-4 sm:gap-y-0">
+        <div>
+          <div class="flex gap-2">
+            <Input
+              v-model="hour"
+              type="number"
+              min="0"
+              max="23"
+              :placeholder="$t('nameless.form.datetimePicker.hour')"
+              class="h-8"
+            />
+            <Input
+              v-model="minute"
+              type="number"
+              min="0"
+              max="59"
+              :placeholder="$t('nameless.form.datetimePicker.minute')"
+              class="h-8"
+            />
+            <Input
+              v-model="second"
+              type="number"
+              min="0"
+              max="59"
+              :placeholder="$t('nameless.form.datetimePicker.second')"
+              class="h-8"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style></style>

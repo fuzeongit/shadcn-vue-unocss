@@ -52,10 +52,17 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
         return (
           <div class="flex items-center">
             Name
+            {filterComponents.str} 
+            {/* {filterComponents.num}
+            {/* {filterComponents.sel} 
+            {filterComponents.remSel}
+            {filterComponents.mulSel}
+            {filterComponents.remMulSel}
             {filterComponents.date}
-            {filterComponents.sel}
-            {filterComponents.num}
-            <FilterString id="str"></FilterString>
+            {filterComponents.dateRange}
+            {filterComponents.datetime}
+            {filterComponents.datetimeRange} */}
+            {/* <FilterString id="str"></FilterString> */}
             <SortedButton column={column}></SortedButton>
           </div>
         );

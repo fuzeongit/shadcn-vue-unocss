@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs';
-import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
+import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
-import { useI18nInject } from '../common/i18n.inject';
 import NInputBorder from './NInputBorder.vue';
-import type { BaseInputProps } from '.';
+import { type BaseInputProps, useDateFormatter } from '.';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props extends BaseInputProps<number> {}
+interface Props extends BaseInputProps<number> {
+  picker?: boolean;
+  dateTimeFormatOptions?: Intl.DateTimeFormatOptions;
+}
 
 defineComponent({
   name: 'NDatePicker'
@@ -18,14 +19,16 @@ defineComponent({
 const props = withDefaults(defineProps<Props>(), {
   placeholder: $t('nameless.form.datePicker.placeholder'),
   clearable: true,
-  disabled: false
+  picker: true,
+  disabled: false,
+  dateTimeFormatOptions: () => ({
+    dateStyle: 'short'
+  })
 });
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: number): void;
 }>();
-
-const i18nInject = useI18nInject();
 
 const modelValue = useVModel(props, 'modelValue', emit, {
   // eslint-disable-next-line vue/no-undef-properties
@@ -34,14 +37,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   deep: true
 });
 
-const locale = computed(() => i18nInject.locale?.value ?? navigator.language);
-
-const df = computed(
-  () =>
-    new DateFormatter(locale.value, {
-      dateStyle: 'short'
-    })
-);
+const { dateFormatter, locale } = useDateFormatter(props.dateTimeFormatOptions);
 
 const open = ref(false);
 
@@ -60,7 +56,7 @@ const localValue = computed<CalendarDate | undefined>({
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder
         role="combobox"
@@ -71,7 +67,7 @@ const localValue = computed<CalendarDate | undefined>({
       >
         <template v-if="modelValue">
           <div class="flex-1 truncate">
-            {{ df.format(new Date(modelValue)) }}
+            {{ dateFormatter.format(new Date(modelValue)) }}
           </div>
         </template>
         <div v-else class="truncate text-muted-foreground flex-1">{{ props.placeholder }}</div>
@@ -88,6 +84,6 @@ const localValue = computed<CalendarDate | undefined>({
       <Calendar v-model="localValue" initial-focus :locale="locale" />
     </PopoverContent>
   </Popover>
-</template>
 
-<style></style>
+  <Calendar v-else v-model="localValue" initial-focus :locale="locale" />
+</template>
