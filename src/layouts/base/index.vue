@@ -159,7 +159,7 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
                     <span class="truncate font-semibold">{{ activeTeam.name }}</span>
                     <span class="truncate text-xs">{{ activeTeam.plan }}</span>
                   </div>
-                  <icon-lucide:chevrons-up-down class="ml-auto" />
+                  <IconLucideChevronsUpDown class="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -184,7 +184,7 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem class="gap-2 p-2">
                   <div class="flex size-6 items-center justify-center rounded-md border bg-background">
-                    <icon-lucide:plus class="size-4" />
+                    <IconLucidePlus class="size-4" />
                   </div>
                   <div class="font-medium text-muted-foreground">Add team</div>
                 </DropdownMenuItem>
@@ -209,7 +209,7 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
                   <SidebarMenuButton :tooltip="item.title">
                     <component :is="item.icon" />
                     <span>{{ item.title }}</span>
-                    <icon-lucide:chevron-right
+                    <IconLucideChevronRight
                       class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
                     />
                   </SidebarMenuButton>
@@ -242,22 +242,22 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
               <DropdownMenu>
                 <DropdownMenuTrigger as-child>
                   <SidebarMenuAction show-on-hover>
-                    <icon-lucide:more-horizontal />
+                    <IconLucideMoreHorizontal />
                     <span class="sr-only">More</span>
                   </SidebarMenuAction>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent class="w-48 rounded-lg" side="bottom" align="end">
                   <DropdownMenuItem>
-                    <icon-lucide:folder class="text-muted-foreground" />
+                    <IconLucideFolder class="text-muted-foreground" />
                     <span>View Project</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <icon-lucide:forward class="text-muted-foreground" />
+                    <IconLucideForward class="text-muted-foreground" />
                     <span>Share Project</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <icon-lucide:trash-2 class="text-muted-foreground" />
+                    <IconLucideTrash2 class="text-muted-foreground" />
                     <span>Delete Project</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -265,7 +265,7 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton class="text-sidebar-foreground/70">
-                <icon-lucide:more-horizontal class="text-sidebar-foreground/70" />
+                <IconLucideMoreHorizontal class="text-sidebar-foreground/70" />
                 <span>More</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -293,7 +293,7 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
                     <span class="truncate font-semibold">{{ data.user.name }}</span>
                     <span class="truncate text-xs">{{ data.user.email }}</span>
                   </div>
-                  <icon-lucide:chevrons-up-down class="ml-auto size-4" />
+                  <IconLucideChevronsUpDown class="ml-auto size-4" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -317,28 +317,28 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
-                    <icon-lucide:sparkles />
+                    <IconLucideSparkles />
                     Upgrade to Pro
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
-                    <icon-lucide:badge-check />
+                    <IconLucideBadgeCheck />
                     Account
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <icon-lucide:credit-card />
+                    <IconLucideCreditCard />
                     Billing
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <icon-lucide:bell />
+                    <IconLucideBell />
                     Notifications
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <icon-lucide:log-out />
+                  <IconLucideLogOut />
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>

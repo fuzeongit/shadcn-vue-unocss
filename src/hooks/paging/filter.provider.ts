@@ -35,11 +35,11 @@ export function useFilterProvider<VM extends object>(
           item.option.type === FilterType.String && value,
           item.option.type === FilterType.Number && value !== undefined && value !== null,
           item.option.type === FilterType.Select && value !== undefined && value !== null,
-          item.option.type === FilterType.RemoteSelect && value !== undefined && value !== null,
           item.option.type === FilterType.MultiSelect,
-          item.option.type === FilterType.RemoteMultiSelect,
           item.option.type === FilterType.Date && value !== undefined && value !== null,
-          item.option.type === FilterType.DateRange
+          item.option.type === FilterType.Datetime && value !== undefined && value !== null,
+          item.option.type === FilterType.DateRange,
+          item.option.type === FilterType.DatetimeRange
         ];
 
         if (term.some(it => it)) {

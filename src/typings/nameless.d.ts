@@ -7,15 +7,5 @@ declare namespace Nameless {
       label: string;
       value: T;
     };
-
-    type RemoteCombobox<T extends SelectValue> = {
-      remote?: true;
-      options: (value?: string) => Promise<Nameless.Form.SelectOption<T>[]>;
-    };
-
-    type LocalCombobox<T extends SelectValue> = {
-      remote?: false;
-      options: Nameless.MaybePromise<Nameless.Form.SelectOption<T>[]>;
-    };
   }
 }

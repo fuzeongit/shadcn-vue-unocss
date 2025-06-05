@@ -41,38 +41,19 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
       size: 32
     }),
     columnHelper.accessor('id', {
-      id: 'id',
       header: 'Id',
       cell: ({ row, column }) => h('div', { class: 'capitalize' }, `${row.getValue('id')} ${column.getStart()}`)
     }),
     columnHelper.accessor('name', {
-      id: 'name',
-      header: ({ column }) => {
-        return (
-          <div class="flex items-center">
-            Name
-            {filterComponents.date}
-            {/* {filterComponents.num}
-            {/* {filterComponents.sel} 
-            {filterComponents.remSel}
-            {filterComponents.mulSel}
-            {filterComponents.remMulSel}
-            {filterComponents.date}
-            {filterComponents.dateRange}
-            {filterComponents.datetime}
-            {filterComponents.datetimeRange} */}
-            {/* <FilterString id="str"></FilterString> */}
-            <SortedButton column={column}></SortedButton>
-          </div>
-        );
-      },
-      cell: ({ row, column }) => h('div', { class: 'lowercase' }, `${row.getValue('name')} ${column.getStart()}`)
+      header: '你好',
+      cell: ({ getValue }) => getValue<UserModule.User['name']>()
     }),
     columnHelper.accessor('birth', {
       header: ({ column }) => {
-        return h(
+        return (
           <div class="flex items-center">
             Birth
+            {filterComponents.str}
             <SortedButton column={column}></SortedButton>
           </div>
         );
@@ -91,7 +72,7 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
           </div>
         );
       },
-      cell: ({ row }) => h('div', { class: 'tag-blue-16px' }, row.getValue('email'))
+      cell: ({ row }) => h('div', { class: 'tag-primary-16px' }, row.getValue('email'))
     }),
     columnHelper.display({
       id: 'actions',
