@@ -36,7 +36,7 @@ defineComponent({
         />
         <NClearButton
           v-if="clearable"
-          :visible="modelValue !== undefined && modelValue !== null && !disabled"
+          :visible="props.modelValue !== undefined && props.modelValue !== null && !props.disabled"
           @click="emit('update:modelValue', undefined as any)"
         ></NClearButton>
         <slot name="suffix" />

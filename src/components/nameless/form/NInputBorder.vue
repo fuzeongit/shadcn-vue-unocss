@@ -13,7 +13,7 @@ defineComponent({
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  as: 'div',
+  as: 'button',
   class: undefined
 });
 </script>

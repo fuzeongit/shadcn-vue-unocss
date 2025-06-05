@@ -1,6 +1,5 @@
 <script setup lang="tsx">
 import { h } from 'vue';
-import { pick } from 'lodash-es';
 import * as z from 'zod';
 import { vAutoAnimate } from '@formkit/auto-animate/vue';
 import { toTypedSchema } from '@vee-validate/zod';
