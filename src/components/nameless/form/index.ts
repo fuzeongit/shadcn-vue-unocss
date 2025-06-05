@@ -55,7 +55,7 @@ export const extractDatetime = (ts: number | undefined, end: boolean = false) =>
 export const useCacheOptions = <T extends Nameless.Form.SelectValue>({
   remote,
   options: maybeOptionsFn
-}: Nameless.Form.RemoteCombobox<T> | Nameless.Form.LocalCombobox<T>) => {
+}: RemoteCombobox<T> | LocalCombobox<T>) => {
   const searchValue = ref<string>();
 
   /** 缓存的选项，包括已经搜索过的 */

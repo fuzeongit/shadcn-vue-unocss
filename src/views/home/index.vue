@@ -5,7 +5,6 @@ import { SelectOptions } from '@/constants/dictionary/select-options';
 import { fetchMock2 } from '@/services';
 import { userApi } from '@/services/apis/user';
 import { useI18nStore } from '@/store/modules/i18n';
-import FilterString from '@/hooks/filter/components/FilterString.vue';
 import { FilterType } from '@/hooks/filter/constants';
 import { useTanstackPaging } from '@/hooks/paging';
 import { renderUserStatus } from '@/utils/render';
@@ -52,7 +51,7 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
         return (
           <div class="flex items-center">
             Name
-            {filterComponents.str} 
+            {filterComponents.date}
             {/* {filterComponents.num}
             {/* {filterComponents.sel} 
             {filterComponents.remSel}
