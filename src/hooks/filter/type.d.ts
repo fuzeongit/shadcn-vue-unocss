@@ -1,12 +1,10 @@
 declare namespace QuickFilter {
   type TanstackColumnFilter = import('@tanstack/vue-table').ColumnFilter;
 
-  type LocalCombobox = import('src/components/nameless/form').LocalCombobox<TNameless.Form.SelectValue>;
-  type RemoteCombobox = import('src/components/nameless/form').RemoteCombobox<Nameless.Form.SelectValue>;
-  // interface SelectOption {
-  //   label: string;
-  //   value?: null | string | number | boolean;
-  // }
+  type SelectValue = import('src/components/nameless/form/type').SelectValue;
+
+  type LocalCombobox = import('src/components/nameless/form/type').LocalCombobox<SelectValue>;
+  type RemoteCombobox = import('src/components/nameless/form/type').RemoteCombobox<SelectValue>;
 
   interface Option {
     placeholder?: string;

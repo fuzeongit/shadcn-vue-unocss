@@ -5,7 +5,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
-import { type BaseInputProps, useDateFormatter } from '.';
+import { type BaseInputProps } from './type';
+import { useDateFormatter } from '.';
 
 interface Props extends BaseInputProps<number> {
   picker?: boolean;

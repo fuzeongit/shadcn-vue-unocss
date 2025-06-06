@@ -1,5 +1,4 @@
 import type { VNode } from 'vue';
-import type { Path } from 'vee-validate';
 import { FilterType } from '@/hooks/filter/constants';
 import type { TanstackColumnFilterOption } from '@/hooks/filter/models';
 import FilterDatePicker from './components/FilterDatePicker.vue';
@@ -34,5 +33,5 @@ export function getFilterButton<VM extends object>(
       components[item.id] = <FilterDatetimeRangePicker key={item.id} id={item.id}></FilterDatetimeRangePicker>;
     }
   });
-  return components as Record<Path<VM>, VNode>;
+  return components as Record<Global.StringKeys<VM>, VNode>;
 }

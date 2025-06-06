@@ -117,7 +117,7 @@ const t = ref('12');
 
 const popoverRef = ref();
 
-const showPopover = event => {
+const showPopover = (event: Event) => {
   popoverRef.value.show(event.target);
 };
 </script>

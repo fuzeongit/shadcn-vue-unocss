@@ -17,7 +17,7 @@ export function useDialog() {
         document.body.removeChild(dialogElement);
       }
     });
-    const componentRef = dialogApp.mount(dialogElement) as InstanceType<typeof NDialog>;
+    const componentRef = dialogApp.mount(dialogElement) as Expose.ComponentInstances['NDialog'];
     document.body.appendChild(dialogElement);
     // 挂载 Dialog 到 dialogElement
     componentRef.show(option);

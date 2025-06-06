@@ -53,7 +53,7 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
         return (
           <div class="flex items-center">
             Birth
-            {filterComponents.str}
+            {filterComponents.date}
             <SortedButton column={column}></SortedButton>
           </div>
         );

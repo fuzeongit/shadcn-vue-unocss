@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
 import NInputBorder from './NInputBorder.vue';
-import type { BaseInputProps } from '.';
+import { type BaseInputProps } from './type';
 import { extractDatetime, useDateFormatter } from '.';
 
 interface Props extends BaseInputProps<number> {

@@ -32,13 +32,9 @@ export function useFilterModel<VM extends object>({
   const filterModel = computed(() => filterModelBuilder?.() ?? ({} as QuickFilter.Model<VM>));
 
   const filterOptions = computed(() =>
-    Object.keys(filterModel.value).map(
-      (key: string) =>
-        new TanstackColumnFilterOption<QuickFilter.ModelOption, VM>(
-          key as unknown as Path<VM>,
-          defaultParams[key as keyof VM],
-          filterModel.value[key as keyof VM]!
-        )
+    (Object.keys(filterModel.value) as Global.StringKeys<VM>[]).map(
+      key =>
+        new TanstackColumnFilterOption<QuickFilter.ModelOption, VM>(key, defaultParams[key], filterModel.value[key]!)
     )
   );
 
@@ -50,49 +46,7 @@ export function useFilterModel<VM extends object>({
 
   const form = useForm<VM>({ initialValues: valuesBuilder() as any });
 
-  // const columnFilters = computed<ColumnFiltersState>(() => {
-  //   return filterOptions.value
-  //     .map(item => {
-  //       const value = get(form.values, item.id);
-  //       const term = [
-  //         item.option.type === FilterType.String && value,
-  //         item.option.type === FilterType.Number && value !== undefined && value !== null,
-  //         item.option.type === FilterType.Select && value !== undefined && value !== null,
-  //         item.option.type === FilterType.RemoteSelect && value !== undefined && value !== null,
-  //         item.option.type === FilterType.MultiSelect,
-  //         item.option.type === FilterType.RemoteMultiSelect,
-  //         item.option.type === FilterType.Date && value !== undefined && value !== null,
-  //         item.option.type === FilterType.DateRange
-  //       ];
-
-  //       if (term.some(it => it)) {
-  //         return {
-  //           id: item.id,
-  //           value: get(form.values, item.id)
-  //         };
-  //       }
-  //       return undefined;
-  //     })
-  //     .filter(it => it !== undefined);
-  // });
-
-  /** 最终搜索模型 */
-  // const defaultValueBuilder = () => {
-  //   const object: Partial<VM> = {};
-  //   Object.keys(filterModel.value).forEach(
-  //     (key: string) => (object[key as keyof VM] = toRaw(defaultParams[key as keyof VM]))
-  //   );
-  //   return object;
-  // };
-
-  // const filterParams = ref(defaultValueBuilder());
-
   const localSearch = () => {
-    // const object: Partial<VM> = {};
-    // Object.keys(filterModel.value).forEach(
-    //   // 将null全部转换为undefined再搜索
-    //   (key: string) => (object[key as keyof VM] = toRaw(filterParams.value[key as keyof VM]) ?? undefined)
-    // );
     search(form.values);
   };
 
@@ -123,4 +77,30 @@ export function useFilterModel<VM extends object>({
 
 export function useFilterInject<T extends QuickFilter.ModelOption, VM extends object>() {
   return inject<FilterInject<T, VM>>(filterProvideKey);
+}
+
+export function useFilterField<T extends QuickFilter.ModelOption, VM extends object>(
+  id: string,
+  { search, filterOptions, form }: FilterInject<T, VM>
+) {
+  const open = ref(false);
+
+  const filterOption = computed(() => filterOptions.value.find(x => x.id === id)!);
+
+  const query = () => {
+    open.value = false;
+    search();
+  };
+
+  const reset = () => {
+    form.resetField(filterOption.value.id as unknown as Path<VM>);
+    query();
+  };
+
+  return {
+    open,
+    filterOption,
+    query,
+    reset
+  };
 }

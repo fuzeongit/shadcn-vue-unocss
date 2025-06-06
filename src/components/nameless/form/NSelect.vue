@@ -1,9 +1,10 @@
-<script lang="ts" setup generic="T extends Nameless.Form.SelectValue">
+<script lang="ts" setup generic="T extends SelectValue">
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
+import type { SelectValue } from '../form/type';
 import NInputBorder from './NInputBorder.vue';
-import type { BaseInputProps, LocalCombobox, RemoteCombobox } from '.';
+import type { BaseInputProps, LocalCombobox, RemoteCombobox } from './type';
 import { useCacheOptions } from '.';
 
 interface Props extends BaseInputProps<T> {

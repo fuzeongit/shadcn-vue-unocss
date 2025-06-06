@@ -1,11 +1,9 @@
 declare namespace Nameless {
-  type MaybePromise<T> = (() => Promise<T>) | T;
+  type MaybePromise<T> = import('src/components/nameless/common/type').MaybePromise<T>;
   namespace Form {
-    type SelectValue = string | number;
+    type SelectValue = import('src/components/nameless/form/type').SelectValue;
 
-    type SelectOption<T extends SelectValue = SelectValue> = {
-      label: string;
-      value: T;
-    };
+    type SelectOption<T extends SelectValue = SelectValue> =
+      import('src/components/nameless/form/type').SelectOption<T>;
   }
 }

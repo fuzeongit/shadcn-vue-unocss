@@ -1,25 +1,13 @@
 <script lang="tsx" setup generic="VM extends object">
-import { useFilterInject } from '@/hooks/filter';
+import { useFilterField, useFilterInject } from '@/hooks/filter';
 import { FormField } from '@/components/ui/form';
 const props = defineProps<{
   id: string;
 }>();
 
-const open = ref(false);
+const filterInject = useFilterInject<QuickFilter.DatetimeRangeOption, VM>()!;
 
-const { search, filterOptions, form } = useFilterInject<QuickFilter.DatetimeRangeOption, VM>()!;
-
-const filterOption = computed(() => filterOptions.value.find(x => x.id === props.id)!);
-
-const query = () => {
-  open.value = false;
-  search();
-};
-
-const reset = () => {
-  form.resetField(filterOption.value.id);
-  query();
-};
+const { open, filterOption, query, reset } = useFilterField(props.id, filterInject);
 </script>
 
 <template>

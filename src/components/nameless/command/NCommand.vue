@@ -1,12 +1,13 @@
-<script lang="ts" setup generic="T extends Nameless.Form.SelectValue | Nameless.Form.SelectValue[]">
+<script lang="ts" setup generic="T extends SelectValue | SelectValue[]">
 import { Icon } from '@iconify/vue';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
+import type { SelectOption, SelectValue } from '../form/type';
 
 type UnwrapArray<T> = T extends (infer U)[] ? U : T;
 
 interface Props {
-  options: Nameless.Form.SelectOption<UnwrapArray<T>>[];
+  options: SelectOption<UnwrapArray<T>>[];
   defaultValue?: T;
   modelValue?: T;
 }

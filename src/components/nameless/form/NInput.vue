@@ -2,7 +2,7 @@
 import { omit } from 'lodash-es';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
-import type { BaseInputProps } from '.';
+import type { BaseInputProps } from './type';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Props extends BaseInputProps<string | number> {}

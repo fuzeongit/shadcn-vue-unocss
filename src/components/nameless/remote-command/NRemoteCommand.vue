@@ -1,13 +1,14 @@
-<script lang="ts" setup generic="T extends Nameless.Form.SelectValue | Nameless.Form.SelectValue[]">
+<script lang="ts" setup generic="T extends SelectValue | SelectValue[]">
 import type { HTMLAttributes } from 'vue';
 import { Icon } from '@iconify/vue';
 import { ListboxContent, ListboxFilter, ListboxGroup, ListboxItem, ListboxRoot, Primitive } from 'reka-ui';
 import { cn } from '@/lib/utils';
+import type { SelectOption, SelectValue } from '../form/type';
 
 interface Props {
   defaultValue?: T;
   modelValue?: T;
-  options: Nameless.Form.SelectOption<Nameless.Form.SelectValue>[];
+  options: SelectOption<SelectValue>[];
   searchValue?: string;
   defaultSearchValue?: string;
   multiple?: boolean;

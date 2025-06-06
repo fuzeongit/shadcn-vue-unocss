@@ -6,7 +6,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { RangeCalendar } from '@/components/ui/range-calendar';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
-import { type BaseInputProps, useDateFormatter } from '.';
+import { type BaseInputProps } from './type';
+import { useDateFormatter } from '.';
 
 interface Props extends BaseInputProps<(number | undefined)[]> {
   picker?: boolean;

@@ -1,44 +1,20 @@
-import type { HTMLAttributes } from 'vue';
 import dayjs from 'dayjs';
 import { unionBy } from 'lodash-es';
 import { DateFormatter } from '@internationalized/date';
 import { useI18nInject } from '../common/i18n.inject';
+import type { LocalCombobox, RemoteCombobox, SelectOption, SelectValue } from './type';
 
-export type RemoteCombobox<T extends Nameless.Form.SelectValue> = {
-  remote?: true;
-  // eslint-disable-next-line vue/no-unused-properties
-  options: (value?: string) => Promise<Nameless.Form.SelectOption<T>[]>;
-};
-
-export type LocalCombobox<T extends Nameless.Form.SelectValue> = {
-  remote?: false;
-  // eslint-disable-next-line vue/no-unused-properties
-  options: Nameless.MaybePromise<Nameless.Form.SelectOption<T>[]>;
-};
-
-export interface BaseInputProps<T> {
-  defaultValue?: T;
-  modelValue?: T;
-  class?: HTMLAttributes['class'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-}
-
-export const dictionaryToOption = <T extends Nameless.Form.SelectValue = Nameless.Form.SelectValue>(
+export const dictionaryToOption = <T extends SelectValue = SelectValue>(
   dictionary: any,
   valueToNumber: boolean = false
-): Nameless.Form.SelectOption<T>[] => {
+): SelectOption<T>[] => {
   return Object.keys(dictionary).map(key => ({
     value: (valueToNumber ? Number(key) : key) as T,
     label: dictionary[key]
   }));
 };
 
-export const extractOption = (
-  value: Nameless.Form.SelectValue | undefined | null,
-  options: Nameless.Form.SelectOption[]
-) => {
+export const extractOption = (value: SelectValue | undefined | null, options: SelectOption[]) => {
   if (value === undefined || value === null) {
     return '';
   }
@@ -52,14 +28,14 @@ export const extractDatetime = (ts: number | undefined, end: boolean = false) =>
   return { hours: d.hour(), minutes: d.minute(), seconds: d.second() };
 };
 
-export const useCacheOptions = <T extends Nameless.Form.SelectValue>({
+export const useCacheOptions = <T extends SelectValue>({
   remote,
   options: maybeOptionsFn
 }: RemoteCombobox<T> | LocalCombobox<T>) => {
   const searchValue = ref<string>();
 
   /** 缓存的选项，包括已经搜索过的 */
-  const cacheOptions: Ref<Nameless.Form.SelectOption<T>[]> = ref([]);
+  const cacheOptions: Ref<SelectOption<T>[]> = ref([]);
 
   /** 当不是远程搜索时，这样有两种可能，传入的是function，则获取，如果是数组则赋值 */
   const localOptions = asyncComputed(async () => {

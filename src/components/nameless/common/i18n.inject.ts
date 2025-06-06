@@ -1,6 +1,4 @@
-export interface I18nInject {
-  locale: Ref<string>;
-}
+import type { I18nInject } from './type';
 
 export const I18N_INJECTION_KEY = Symbol('i18n');
 

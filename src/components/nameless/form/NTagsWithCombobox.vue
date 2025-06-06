@@ -1,11 +1,11 @@
-<script lang="ts" setup generic="T extends Nameless.Form.SelectValue">
+<script lang="ts" setup generic="T extends SelectValue">
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { $t } from '@/locales';
+import type { SelectOption, SelectValue } from '../form/type';
 import NInputBorder from './NInputBorder.vue';
-import type { BaseInputProps, LocalCombobox, RemoteCombobox } from '.';
+import type { BaseInputProps, LocalCombobox, RemoteCombobox } from './type';
 import { useCacheOptions } from '.';
-
 interface Props extends BaseInputProps<T[]> {
   picker?: boolean;
 }
@@ -86,7 +86,7 @@ const closeTag = (item: T) => {
               >
                 <div class="py-0.5 px-2 text-sm rounded bg-transparent">
                   <!-- eslint-disable-next-line vue/no-undef-properties -->
-                  {{ cacheOptions.find((it: Nameless.Form.SelectOption) => it.value === item)?.label }}
+                  {{ cacheOptions.find((it: SelectOption) => it.value === item)?.label }}
                 </div>
                 <button class="flex rounded bg-transparent mr-1" tabindex="-1" @click.prevent.stop="closeTag(item)">
                   <IconRadixIconsCross2 class="w-4 h-4 opacity-50 shrink-0"></IconRadixIconsCross2>
