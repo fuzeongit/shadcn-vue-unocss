@@ -30,5 +30,7 @@ declare module 'vue-router' {
     order?: number;
 
     permissions?: PermissionModule.Permission[];
+
+    i18nKey?: App.I18n.I18nKey;
   }
 }
