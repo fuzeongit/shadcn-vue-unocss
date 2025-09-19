@@ -24,8 +24,6 @@ function filterConstantHiddenRoutes(routes: GeneratedRoute[]): MenuItem[] {
         url: it.path,
         icon: it.meta?.icon,
         localIcon: it.meta?.localIcon,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         title: $t(it.meta!.i18nKey!)
       };
 
@@ -38,13 +36,17 @@ function filterConstantHiddenRoutes(routes: GeneratedRoute[]): MenuItem[] {
 }
 
 // 将路由转换为菜单项
-const menus = computed(() => {
+const defaultMenus = computed(() => {
   return filterConstantHiddenRoutes(generatedRoutes);
 });
+
+defineProps<{
+  menus?: MenuItem[];
+}>();
 </script>
 
 <template>
   <SidebarMenu>
-    <MenuCollapsible v-for="item in menus" :key="item.name" :menu="item"></MenuCollapsible>
+    <MenuCollapsible v-for="item in menus ?? defaultMenus" :key="item.name" :menu="item"></MenuCollapsible>
   </SidebarMenu>
 </template>

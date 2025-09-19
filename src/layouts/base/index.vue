@@ -354,6 +354,8 @@ function setActiveTeam(team: (typeof data.teams)[number]) {
         <div class="flex items-center gap-2 px-4">
           <SidebarTrigger class="-ml-1" />
           <Separator orientation="vertical" class="mr-2 h-4" />
+          <ThemeDropdown></ThemeDropdown>
+          <LanguageDropdown></LanguageDropdown>
         </div>
       </header>
       <div class="flex-1 p-4 min-h-min overflow-hidden w-full">

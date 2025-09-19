@@ -6,7 +6,7 @@ declare namespace App {
    * Locales type
    */
   namespace I18n {
-    type LangType = 'en-US' | 'zh-CN' | 'zh-HK';
+    type LangType = keyof typeof import('../locales').Language;
 
     type Schema = typeof import('../locales/langs/zh-cn.json') &
       typeof import('../components/nameless/locales/langs/zh-cn.json');

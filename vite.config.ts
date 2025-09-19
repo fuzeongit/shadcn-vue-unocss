@@ -21,6 +21,9 @@ export default defineConfig(configEnv => {
       host: '0.0.0.0',
       port: 5173,
       proxy: createViteProxy(viteEnv, enableProxy)
+    },
+    optimizeDeps: {
+      include: ['reflect-metadata']
     }
   };
 });

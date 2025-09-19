@@ -35,3 +35,11 @@ export async function loadLanguageAsync() {
   i18n.global.mergeLocaleMessage(locale, namelessFile.default);
   return setLocale(locale);
 }
+
+export enum Language {
+  'en-US' = 'English',
+
+  'zh-CN' = '简体中文',
+
+  'zh-HK' = '繁體中文'
+}

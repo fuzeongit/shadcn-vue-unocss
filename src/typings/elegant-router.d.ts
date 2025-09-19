@@ -38,6 +38,9 @@ declare module "@elegant-router/types" {
     "home": "/home";
     "test1": "/test1";
     "test1_test11": "/test1/test11";
+    "v1": "/v1";
+    "v1_v2": "/v1/v2";
+    "v1_v2_v3": "/v1/v2/v3";
   };
 
   /**
@@ -89,6 +92,7 @@ declare module "@elegant-router/types" {
     | "form"
     | "home"
     | "test1"
+    | "v1"
   >;
 
   /**
@@ -113,6 +117,7 @@ declare module "@elegant-router/types" {
     | "form"
     | "home"
     | "test1_test11"
+    | "v1_v2_v3"
   >;
 
   /**

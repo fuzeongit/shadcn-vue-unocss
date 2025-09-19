@@ -77,5 +77,35 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       }
     ]
+  },
+  {
+    name: 'v1',
+    path: '/v1',
+    component: 'layout.base',
+    meta: {
+      title: 'v1',
+      i18nKey: 'route.v1'
+    },
+    children: [
+      {
+        name: 'v1_v2',
+        path: '/v1/v2',
+        meta: {
+          title: 'v1_v2',
+          i18nKey: 'route.v1_v2'
+        },
+        children: [
+          {
+            name: 'v1_v2_v3',
+            path: '/v1/v2/v3',
+            component: 'view.v1_v2_v3',
+            meta: {
+              title: 'v1_v2_v3',
+              i18nKey: 'route.v1_v2_v3'
+            }
+          }
+        ]
+      }
+    ]
   }
 ];

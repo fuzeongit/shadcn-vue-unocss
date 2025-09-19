@@ -21,4 +21,5 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   form: () => import("@/views/form/index.vue"),
   home: () => import("@/views/home/index.vue"),
   test1_test11: () => import("@/views/test1/test11/index.vue"),
+  v1_v2_v3: () => import("@/views/v1/v2/v3/index.vue"),
 };

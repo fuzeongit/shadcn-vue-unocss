@@ -183,7 +183,10 @@ const routeMap: RouteMap = {
   "form": "/form",
   "home": "/home",
   "test1": "/test1",
-  "test1_test11": "/test1/test11"
+  "test1_test11": "/test1/test11",
+  "v1": "/v1",
+  "v1_v2": "/v1/v2",
+  "v1_v2_v3": "/v1/v2/v3"
 };
 
 /**

@@ -52,7 +52,7 @@
   "devDependencies": {
     "@iconify/json": "^2.2.271",
     "@sa/uno-preset": "workspace:*",
-    "@soybeanjs/eslint-config": "^1.4.2",
+    "@soybeanjs/eslint-config": "1.4.2",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.13.10",
     "@types/qs": "^6.9.17",
