@@ -24,6 +24,7 @@ defineComponent({
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-duplicate-attr-inheritance -->
   <NInputBorder as="div" role="textbox" :class="cn('group/input_border', props.class)" v-bind="$attrs">
     <NumberField
       v-bind="props"

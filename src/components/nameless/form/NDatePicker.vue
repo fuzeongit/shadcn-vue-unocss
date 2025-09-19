@@ -57,6 +57,7 @@ const localValue = computed<CalendarDate | undefined>({
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-duplicate-attr-inheritance -->
   <Popover v-if="picker" v-model:open="open">
     <PopoverTrigger as-child>
       <NInputBorder

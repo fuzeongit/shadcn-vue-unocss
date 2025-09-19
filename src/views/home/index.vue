@@ -1,22 +1,20 @@
 <script setup lang="tsx">
-import { FlexRender, createColumnHelper } from '@tanstack/vue-table';
 import { Icon } from '@iconify/vue';
-import { SelectOptions } from '@/constants/dictionary/select-options';
-import { fetchMock2 } from '@/services';
-import { userApi } from '@/services/apis/user';
-import { useI18nStore } from '@/store/modules/i18n';
-import { FilterType } from '@/hooks/filter/constants';
-import { useTanstackPaging } from '@/hooks/paging';
-import { renderUserStatus } from '@/utils/render';
+import { FlexRender, createColumnHelper } from '@tanstack/vue-table';
 import SortedButton from '@/components/custom/sorted-button/SortedButton.vue';
 import { dictionaryToOption } from '@/components/nameless/form';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { SelectOptions } from '@/constants/dictionary/select-options';
+import { FilterType } from '@/hooks/filter/constants';
+import { useTanstackPaging } from '@/hooks/paging';
 import { cn } from '@/lib/utils';
 import { Params } from '@/params/user';
-const mode = useColorMode();
-const i18nStore = useI18nStore();
+import { fetchMock2 } from '@/services';
+import { userApi } from '@/services/apis/user';
+import { renderUserStatus } from '@/utils/render';
+
 const columnHelper = createColumnHelper<UserModule.User>();
 
 const { loading, table, filterComponents } = useTanstackPaging<Params, UserModule.User>({
@@ -153,21 +151,10 @@ const { loading, table, filterComponents } = useTanstackPaging<Params, UserModul
   })
 });
 const isEmpty = computed(() => table.getRowModel().rows.length === 0);
-
-function* testGenerator(i: number) {
-  yield i + 1;
-}
-
-const ttt = testGenerator(10);
-
-const change = () => {
-  document.documentElement.style.setProperty('--primary', '200 100% 50%'); // 自定义值
-};
 </script>
 
 <template>
   <div class="w-full">
-
     <!--
  <Button
       @click="

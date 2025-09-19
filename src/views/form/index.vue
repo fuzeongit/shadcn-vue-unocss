@@ -49,7 +49,7 @@ const formSchema = toTypedSchema(
   })
 );
 
-const { validate, setValues, controlledValues, setFieldValue, resetForm, resetField, validateField, errors } = useForm({
+const { validate, setValues, controlledValues, setFieldValue, resetForm, validateField } = useForm({
   validationSchema: formSchema,
   initialValues: new Dto()
 });
@@ -98,20 +98,6 @@ const handleResetField = async () => {
   // resetForm({ values: controlledValues.value });
 
   await Promise.all(keys.map(key => validateField(key as keyof typeof controlledValues.value)));
-
-  ['num', 'sel', 'remSel', 'remMulSel', 'date', 'datetime', 'dateRange', 'datetimeRange'].forEach(key => {
-    if (errors.value[key]) {
-      resetField(key, {
-        value: controlledValues.value[key],
-        valid: false
-      });
-    }
-  });
-
-  // resetForm({ values: controlledValues.value });
-
-  // console.log(errs, shouldValidateFields);
-  // validateField('str');
 };
 const t = ref('12');
 
